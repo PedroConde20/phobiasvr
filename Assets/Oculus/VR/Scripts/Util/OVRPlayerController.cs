@@ -381,10 +381,15 @@ public class OVRPlayerController : MonoBehaviour
 			if (dpad_move || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				moveInfluence *= 2.0f;
 
-			Quaternion ort = transform.rotation;
-			Vector3 ortEuler = ort.eulerAngles;
-			ortEuler.z = ortEuler.x = 0f;
-			ort = Quaternion.Euler(ortEuler);
+			//Quaternion ort = transform.rotation;
+			//Vector3 ortEuler = ort.eulerAngles;
+			//ortEuler.z = ortEuler.x = 0f;
+			//ort = Quaternion.Euler(ortEuler);
+
+			// Modificado
+			Quaternion ort = CameraRig.centerEyeAnchor.rotation;
+			ort.x = 0f;
+			ort.z = 0f;
 
 			if (moveForward)
 				MoveThrottle += ort * (transform.lossyScale.z * moveInfluence * Vector3.forward);
