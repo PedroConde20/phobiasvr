@@ -27,6 +27,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
+	public string[] ignoredTags;
 	/// <summary>
 	/// The rate acceleration during movement.
 	/// </summary>
@@ -321,6 +322,18 @@ public class OVRPlayerController : MonoBehaviour
 
 		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
+		foreach (var tag in ignoredTags)
+		{
+			Collider[] colliders = Physics.OverlapCapsule(Controller.transform.position + Controller.center, Controller.transform.position + Controller.center + Vector3.up * Controller.height, Controller.radius);
+			foreach (Collider collider in colliders)
+			{
+				if (collider.CompareTag(tag))
+				{
+					Physics.IgnoreCollision(Controller, collider);
+				}
+			}
+		}
+
 		// Move contoller
 		Controller.Move(moveDirection);
 		Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
@@ -342,6 +355,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		if (EnableLinearMovement)
 		{
+
 			bool moveForward = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 			bool moveLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 			bool moveRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
@@ -381,15 +395,10 @@ public class OVRPlayerController : MonoBehaviour
 			if (dpad_move || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				moveInfluence *= 2.0f;
 
-			//Quaternion ort = transform.rotation;
-			//Vector3 ortEuler = ort.eulerAngles;
-			//ortEuler.z = ortEuler.x = 0f;
-			//ort = Quaternion.Euler(ortEuler);
-
-			// Modificado
-			Quaternion ort = CameraRig.centerEyeAnchor.rotation;
-			ort.x = 0f;
-			ort.z = 0f;
+			Quaternion ort = transform.rotation;
+			Vector3 ortEuler = ort.eulerAngles;
+			ortEuler.z = ortEuler.x = 0f;
+			ort = Quaternion.Euler(ortEuler);
 
 			if (moveForward)
 				MoveThrottle += ort * (transform.lossyScale.z * moveInfluence * Vector3.forward);
