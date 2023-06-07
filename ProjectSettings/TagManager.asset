@@ -8,6 +8,12 @@ TagManager:
   - contador
   - lata
   - Colision
+  - Arma
+  - Bala
+  - Arana
+  - Caja
+  - Tapa
+  - Revista
   layers:
   - Default
   - TransparentFX
