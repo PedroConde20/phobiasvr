@@ -7,69 +7,92 @@ public class SpiderControl : MonoBehaviour
     public float speed = 5f;
     public float rotationChangeInterval = 2f; // Intervalo de tiempo para cambiar la rotación
     public string boxTag = "Caja"; // Tag de la caja
+    public string tapaTag = "Tapa";
+    public Transform[] targetPoints; // Puntos de destino que la araña seguirá
 
+    private int currentTargetIndex = 0;
     private Quaternion targetRotation;
     private float rotationTimer = 0f;
     private bool isMoving = true; // Indica si la araña está en movimiento
 
     private Animation animation; // Referencia al componente Animation
 
-    private GameObject dentroObject; // Objeto "Dentro" en la jerarquía
+    private Rigidbody rb; // Referencia al componente Rigidbody
 
     void Start()
     {
-        GenerateRandomRotation();
         animation = GetComponent<Animation>(); // Obtener el componente Animation
+        rb = GetComponent<Rigidbody>(); // Obtener el componente Rigidbody
 
-        dentroObject = GameObject.Find("Dentro"); // Encontrar el objeto "Dentro" en la jerarquía
+        MoveToNextTarget(); // Mover a la posición inicial
     }
 
     void Update()
     {
         if (isMoving)
         {
-            MoveForward();
+            MoveTowardsTarget();
 
             rotationTimer += Time.deltaTime;
             if (rotationTimer >= rotationChangeInterval)
             {
-                GenerateRandomRotation();
+                RotateTowardsNextTarget();
                 rotationTimer = 0f;
             }
-
-            RotateModel();
         }
     }
 
-    void MoveForward()
+    void MoveTowardsTarget()
     {
-        Vector3 movement = transform.forward * speed * Time.deltaTime;
+        if (targetPoints.Length == 0) return;
+
+        Vector3 targetPosition = targetPoints[currentTargetIndex].position;
+        Vector3 movement = (targetPosition - transform.position).normalized * speed * Time.deltaTime;
         transform.Translate(movement, Space.World);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            MoveToNextTarget();
+        }
     }
 
-    void GenerateRandomRotation()
+    void RotateTowardsNextTarget()
     {
-        float randomYRotation = Random.Range(-90f, 90f); // Rango más limitado de rotación
-        targetRotation = Quaternion.Euler(0f, randomYRotation, 0f);
+        if (targetPoints.Length == 0) return;
+
+        Vector3 nextTargetPosition = targetPoints[(currentTargetIndex + 1) % targetPoints.Length].position;
+        Vector3 direction = (nextTargetPosition - transform.position).normalized;
+        targetRotation = Quaternion.LookRotation(direction);
     }
 
-    void RotateModel()
+    void MoveToNextTarget()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f); // Suavizado de rotación más lento
+        currentTargetIndex = (currentTargetIndex + 1) % targetPoints.Length;
+
+        RotateTowardsNextTarget();
+        Vector3 eulerRotation = targetRotation.eulerAngles;
+        eulerRotation.x = 0f;
+        eulerRotation.z = 0f;
+        targetRotation = Quaternion.Euler(eulerRotation);
+
+        // Invertir la rotación para que la araña mire hacia adelante
+        Vector3 invertedEulerRotation = targetRotation.eulerAngles;
+        invertedEulerRotation.y += 180f;
+        targetRotation = Quaternion.Euler(invertedEulerRotation);
+
+        transform.rotation = targetRotation; // Establecer la rotación hacia el siguiente punto
+
+        animation.Play("run");
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(boxTag))
+        if (other.CompareTag(boxTag) || other.CompareTag(tapaTag))
         {
             Debug.Log("Colisiono");
-            isMoving = false; // Detener la araña cuando colisiona con la caja
-            animation.Stop("run");
-            animation.Play("idle"); // Activar la transición a la animación "idle"
 
-            // Establecer la posición relativa de la araña dentro del objeto "Dentro"
-            transform.SetParent(dentroObject.transform);
-            transform.localPosition = Vector3.zero;
+            // Destruir el objeto cuando colisiona con la caja o la tapa
+            Destroy(gameObject);
         }
     }
 }
