@@ -67,4 +67,4 @@ public class ObjetoFinalScript : MonoBehaviour
             movingObject.transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
         }
     }
-}
+} 
