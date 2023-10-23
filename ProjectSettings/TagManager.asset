@@ -24,6 +24,7 @@ TagManager:
   - button f6
   - moverse
   - Silla
+  - Grito
   layers:
   - Default
   - TransparentFX
