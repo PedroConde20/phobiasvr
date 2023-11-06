@@ -25,6 +25,8 @@ TagManager:
   - moverse
   - Silla
   - Grito
+  - Pico
+  - Roca
   layers:
   - Default
   - TransparentFX

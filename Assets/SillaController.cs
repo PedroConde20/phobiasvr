@@ -9,17 +9,15 @@ public class SillaController : MonoBehaviour
     private Transform playerTransform;
     private bool sentado = false;
     private CharacterController playerController; // Referencia al CharacterController del jugador.
-    public AudioSource audioSource;
-    public AudioClip primerClip;
-    public AudioClip segundoClip;
-    private bool primerClipReproducido = false;
 
     private void Update()
     {
         if (playerCerca)
         {
+            Debug.Log("El Jugador esta cerca");
             if (!sentado)
             {
+                Debug.Log("El Jugador esta diferente a sentado");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     // Deshabilita temporalmente el CharacterController del jugador.
@@ -29,10 +27,6 @@ public class SillaController : MonoBehaviour
                     playerTransform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
                     sentado = true;
 
-                    // Reproduce el primer clip cuando el jugador se sienta.
-                    audioSource.clip = primerClip;
-                    audioSource.Play();
-                    primerClipReproducido = true;
                 }
             }
             else
@@ -47,19 +41,13 @@ public class SillaController : MonoBehaviour
                 }
             }
         }
-
-        // Si se ha reproducido el primer clip y han pasado 10 segundos, reproduce el segundo clip.
-        if (primerClipReproducido && !audioSource.isPlaying && Time.timeSinceLevelLoad > 10f)
-        {
-            audioSource.clip = segundoClip;
-            audioSource.Play();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("El Jugador esta cerca en el void ontriggerenter");
             playerCerca = true;
             playerTransform = other.transform;
             playerController = other.GetComponent<CharacterController>(); // Obtiene el CharacterController del jugador.
