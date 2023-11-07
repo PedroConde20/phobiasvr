@@ -12,6 +12,7 @@ public class AvionController : MonoBehaviour
     private float tiempoTranscurrido = 0.0f;
     private Vector3 turbulencia;
     private Quaternion rotacionInicial;
+    public bool estadespegando = false; // Booleano que indica si se está despegando
 
     void Start()
     {
@@ -24,24 +25,28 @@ public class AvionController : MonoBehaviour
 
     void Update()
     {
-        tiempoTranscurrido += Time.deltaTime;
-
-        // Durante el despegue
-        if (tiempoTranscurrido < tiempoDespegue)
+        if (estadespegando)
         {
-            // Aplicar turbulencia
-            avionTransform.Rotate(turbulencia * Time.deltaTime);
+            tiempoTranscurrido += Time.deltaTime;
+            // Durante el despegue
+            if (tiempoTranscurrido < tiempoDespegue)
+            {
+                // Aplicar turbulencia
+                avionTransform.Rotate(turbulencia * Time.deltaTime);
 
-            // Calcular la rotación deseada (apuntar hacia arriba)
-            Quaternion rotacionDeseada = Quaternion.Euler(20.0f, avionTransform.rotation.eulerAngles.y, avionTransform.rotation.eulerAngles.z);
+                // Calcular la rotación deseada (apuntar hacia arriba)
+                Quaternion rotacionDeseada = Quaternion.Euler(-20.0f, avionTransform.rotation.eulerAngles.y, avionTransform.rotation.eulerAngles.z);
 
-            // Aplicar la rotación suavemente
-            avionTransform.rotation = Quaternion.Lerp(avionTransform.rotation, rotacionDeseada, velocidadRotacion * Time.deltaTime);
-        }
-        else
-        {
-            // Ha pasado el tiempo de despegue, restablecer la rotación a la inicial
-            avionTransform.rotation = Quaternion.Lerp(avionTransform.rotation, rotacionInicial, velocidadRotacion * Time.deltaTime);
+
+
+                // Aplicar la rotación suavemente
+                avionTransform.rotation = Quaternion.Lerp(avionTransform.rotation, rotacionDeseada, velocidadRotacion * Time.deltaTime);
+            }
+            else
+            {
+                // Ha pasado el tiempo de despegue, restablecer la rotación a la inicial
+                avionTransform.rotation = Quaternion.Lerp(avionTransform.rotation, rotacionInicial, velocidadRotacion * Time.deltaTime);
+            }
         }
     }
 }
