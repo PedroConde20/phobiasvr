@@ -11,6 +11,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/g5/Scene/Aracnofobia.unity
     guid: 50235ee3b7d63ce4387884d7e4c18d9f
+  - enabled: 1
+    path: Assets/g5/Scene/MenuV.unity
+    guid: a33c69bef33d0a642a41e5dd817bc320
+  - enabled: 1
+    path: Assets/g5/Scene/Aerofobia.unity
+    guid: d3dc9430ef240e74aab287bb5f08a282
+  - enabled: 1
+    path: Assets/g5/Scene/AerofobiaTerminal.unity
+    guid: 5a99c8fc88ff68f4493d4f9cd7517543
+  - enabled: 1
+    path: Assets/g5/Scene/Claustrofobia.unity
+    guid: c2443056c6ac51f4bb3bec96412546a0
+  - enabled: 1
+    path: Assets/g5/Scene/ClaustrofobiaAvion.unity
+    guid: fd41fafecd6074945b848ef824e95647
+  - enabled: 1
+    path: Assets/g5/Scene/ClaustrofobiaCave.unity
+    guid: 6a7077f714769464cac8c032110d0762
+  - enabled: 1
+    path: Assets/g5/Scene/Login.unity
+    guid: 2d49b4bc550b2004bb0fa8296666fda9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c5ed1d432e7e8914095b630035e9d74a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 70b99fe0698924b4cb3b89a094bda2f9, type: 2}
