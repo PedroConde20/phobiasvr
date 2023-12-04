@@ -37,6 +37,7 @@ public class ContadorAire : MonoBehaviour
             // Si se agota el tiempo, realiza las acciones que necesites aquí
             // Por ejemplo, puedes reiniciar el nivel o mostrar un mensaje de que se quedó sin aire.
             Debug.Log("¡Te quedaste sin aire!");
+            Application.Quit();
         }
     }
 }
