@@ -13,6 +13,7 @@ public class SillaController : MonoBehaviour
     private CharacterController playerController; // Referencia al CharacterController del jugador.
     public AvionController avionController; // Referencia al AvionController.
 
+    public CameraController cameraController;
     private void Update()
     {
         if (playerCerca)
@@ -57,6 +58,7 @@ public class SillaController : MonoBehaviour
             {
                 avionController.estadespegando = true;
                 Debug.Log("Esta despegando esta en True");
+                StartCoroutine(cameraController.Shake());
             }
         }
     }
