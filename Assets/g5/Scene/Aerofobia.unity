@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 93c25d63899206a43ba4c2dcf38a10ee, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -11815,11 +11815,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbf2766a8eeb114a80ff5472fbceea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 15
-  magnitude: 0.05
-  maxDuration: 30
+  initialDuration: 22
+  initialMagnitude: 0.05
+  intenseDuration: 15
   maxMagnitude: 0.5
-  smoothness: 1
+  finalDuration: 5
+  transitionDuration: 1
 --- !u!1 &2118342441
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 93c25d63899206a43ba4c2dcf38a10ee, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -18280,6 +18280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bef9e1abef777e4ebd468a9aee906c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prueba: 1
 --- !u!1001 &401019772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38799,7 +38800,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
-  tiempo: 30
+  distanciaDeteccion: 1
+  tiempoEspera: 1
 --- !u!64 &849159827
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -45471,7 +45473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 4
-  tiempo: 30
+  distanciaDeteccion: 1
+  tiempoEspera: 1
 --- !u!1001 &1027946409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76591,7 +76594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
-  tiempo: 40
+  distanciaDeteccion: 1
+  tiempoEspera: 1
 --- !u!64 &1740674223
 MeshCollider:
   m_ObjectHideFlags: 0
