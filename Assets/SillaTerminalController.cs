@@ -17,7 +17,7 @@ public class SillaTerminalController : MonoBehaviour
             // Si hay un objeto asignado, hazlo visible
             if (objetoVisible != null)
             {
-                Debug.Log("Entro al objeto para que se haga visible");
+                Debug.Log("Entro al objeto para que se haga visible");//Se controla de que la colision con el objeto fucnione
                 objetoVisible.SetActive(true);
             }
             Destroy(gameObject);
@@ -29,8 +29,6 @@ public class SillaTerminalController : MonoBehaviour
                 if (textoCanvas != null)
                 {
                     textoCanvas.text = mensajeNuevo;
-
-                   
                 }
             }
         }

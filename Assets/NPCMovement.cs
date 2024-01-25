@@ -38,7 +38,7 @@ public class NPCMovement : MonoBehaviour
         // Obtiene una posición aleatoria dentro del radio especificado
         Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
         randomDirection += transform.position;
-        NavMeshHit hit;
+        NavMeshHit hit; 
         NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, 1);
         Vector3 finalPosition = hit.position;
 
