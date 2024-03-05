@@ -29,6 +29,8 @@ TagManager:
   - Roca
   - Maleta
   - AquiMaleta
+  - IndicadorTexto
+  - IndicadorTexto2
   layers:
   - Default
   - TransparentFX

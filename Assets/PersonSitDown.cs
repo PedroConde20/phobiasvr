@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PersonSitDown : MonoBehaviour
 {
+    public bool estaactualizado = true;
     public float distanciaSilla = 1.5f;
     public bool playerCerca = false;
     public Transform playerTransform;
@@ -14,9 +15,15 @@ public class PersonSitDown : MonoBehaviour
     public bool pantallaNegraActiva = false;
 
     public TurbulenciaAvion turbulenciaAvion; // Referencia al script de turbulencia
+    public bool activarTurbulencia = false;
 
+    public int vecesSentado = 0;
 
+    public CameraControllerAirplane cameraController; // Referencia al script CameraController
 
+    public float magnitudeperfectas = 0.05f;
+
+    public bool siguientetexto = false;
     private void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
@@ -28,6 +35,12 @@ public class PersonSitDown : MonoBehaviour
         pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
         pantallaNegra.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         pantallaNegra.SetActive(false);
+        // Obtener la referencia al script CameraController
+        cameraController = Camera.main.GetComponent<CameraControllerAirplane>();
+        if (cameraController == null)
+        {
+            Debug.LogError("Error: CameraController script no encontrado en la cámara principal.");
+        }
     }
 
     private void Update()
@@ -41,9 +54,13 @@ public class PersonSitDown : MonoBehaviour
                     Sentarse();
                     StartCoroutine(OscurecerPantalla());
                     primeraColision = false;
+                    siguientetexto = true;
+                    vecesSentado = 1;
+                    Debug.Log(siguientetexto + "" + "siguiente texto esta en true");
                 }
                 else if (Input.GetKeyDown(KeyCode.F))
                 {
+                    vecesSentado++;
                     // A partir de la segunda vez, el jugador puede levantarse o sentarse al presionar la tecla F.
                     if (sentado)
                     {
@@ -59,12 +76,40 @@ public class PersonSitDown : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    // Al presionar F para levantarse, activar el cronómetro para la turbulencia
+                    activarTurbulencia = true;
                     Pararse();
                 }
             }
         }
-    }
 
+        // Activar la turbulencia 5 segundos después de levantarse
+        if (activarTurbulencia)
+        {
+            StartCoroutine(ActivarTurbulenciaDespuesDeEspera());
+            activarTurbulencia = false;
+
+        }
+        if (cameraController != null)
+        {
+            Debug.Log("Cameracontroller no es nulo");
+            // Verificar si tanto la turbulencia como estar sentado están activados
+            if (sentado && vecesSentado > 1)
+            {
+                Debug.Log("Esta entrando al programa shake");
+                // Activar el movimiento de la cámara como turbulencia
+                cameraController.Shake(magnitudeperfectas);
+            }
+            else if (!sentado)
+            {
+                // Restablecer la posición de la cámara al levantarse
+                cameraController.StopShaking();
+            }
+
+        }
+
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -103,6 +148,8 @@ public class PersonSitDown : MonoBehaviour
             StartCoroutine(AclararPantalla());
             pantallaNegraActiva = false;
         }
+        // Restablecer la posición de la cámara al levantarse
+        cameraController.StopShaking();
     }
 
     private IEnumerator OscurecerPantalla()
@@ -151,7 +198,14 @@ public class PersonSitDown : MonoBehaviour
 
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
-        // Activar la turbulencia después de aclarar la pantalla
+    }
+
+    private IEnumerator ActivarTurbulenciaDespuesDeEspera()
+    {
+        // Esperar 5 segundos antes de activar la turbulencia
+        yield return new WaitForSeconds(5f);
+
+        // Activar la turbulencia después de 5 segundos
         turbulenciaAvion.turbulenciaActivada = true;
     }
 }
