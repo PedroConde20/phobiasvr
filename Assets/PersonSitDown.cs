@@ -24,6 +24,8 @@ public class PersonSitDown : MonoBehaviour
     public float magnitudeperfectas = 0.05f;
 
     public bool siguientetexto = false;
+
+    public bool textoCronometro = false;
     private void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
@@ -88,6 +90,7 @@ public class PersonSitDown : MonoBehaviour
         {
             StartCoroutine(ActivarTurbulenciaDespuesDeEspera());
             activarTurbulencia = false;
+
 
         }
         if (cameraController != null)
@@ -207,5 +210,6 @@ public class PersonSitDown : MonoBehaviour
 
         // Activar la turbulencia después de 5 segundos
         turbulenciaAvion.turbulenciaActivada = true;
+        textoCronometro = true;
     }
 }

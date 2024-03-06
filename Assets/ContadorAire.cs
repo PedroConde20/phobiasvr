@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +11,28 @@ public class ContadorAire : MonoBehaviour
 
     void Start()
     {
+        // Desactiva el contador al principio
+        textoCanvas.gameObject.SetActive(false);
+
+        // Inicia la secuencia de mensajes
+        StartCoroutine(MostrarMensajes());
+    }
+
+    IEnumerator MostrarMensajes()
+    {
+        // Muestra el primer mensaje durante 10 segundos
+        textoCanvas.text = "Debes escapar de esta cueva! Puedes encontrar algunos objetos que te ayudarán, linterna y un Pico";
+        textoCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(10f);
+
+        // Muestra el segundo mensaje durante 10 segundos
+        textoCanvas.text = "Asegurate de llevar la linterna y pico, los necesitaras!";
+        yield return new WaitForSeconds(10f);
+
+        // Muestra el contador
         tiempoRestante = tiempoLimiteMinutos * 60f; // Convierte minutos a segundos
+        textoCanvas.text = ""; // Limpia el texto
+        textoCanvas.gameObject.SetActive(true);
 
         // Inicia la cuenta regresiva
         InvokeRepeating("ActualizarContador", 0f, 1f); // Llama a ActualizarContador cada segundo

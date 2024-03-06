@@ -10200,11 +10200,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb1cf73785db581448f76d31f7a4a87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estaactualizado: 1
   distanciaSilla: 1.5
   playerCerca: 0
   playerTransform: {fileID: 1220232759}
   sentado: 0
   playerController: {fileID: 1220232764}
+  cambioTextoCanvas: {fileID: 1220232766}
 --- !u!23 &772206947
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15889,8 +15891,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6da7ca77f70ec6459e6094d532dbe47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estaactualizado: 1
   textoCanvas: {fileID: 423507833}
   personSitDown: {fileID: 1460716262}
+  algoAndaMal: 0
+  cameraControllerAirplane: {fileID: 1724605925}
+  turbulenciaAvion: {fileID: 337951113}
+  doorController: {fileID: 1749936338}
+  tiempoLimiteMinutos: 1
+  tiempoRestante: 0
+  final: 0
 --- !u!1 &1223277667
 GameObject:
   m_ObjectHideFlags: 0
@@ -20916,7 +20926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460716256}
   m_LocalRotation: {x: 0, y: 0.76604444, z: 0, w: 0.64278764}
-  m_LocalPosition: {x: -0.506, y: -6.995, z: -16.816}
+  m_LocalPosition: {x: -0.506, y: -7.06, z: -16.816}
   m_LocalScale: {x: 0.71515, y: 0.71404886, z: 0.71515}
   m_Children:
   - {fileID: 289004667}
@@ -21013,6 +21023,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   magnitudeperfectas: 0.05
   siguientetexto: 0
+  textoCronometro: 0
 --- !u!1 &1464171284
 GameObject:
   m_ObjectHideFlags: 0
@@ -24800,6 +24811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openAngle: 90
+  isOpen: 0
 --- !u!64 &1749936339
 MeshCollider:
   m_ObjectHideFlags: 0

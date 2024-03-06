@@ -4,43 +4,62 @@ using UnityEngine;
 
 public class PersonWakeUp : MonoBehaviour
 {
+    public bool estaactualizado = true;
     public float distanciaSilla = 1.5f;
     public bool playerCerca = false;
     public Transform playerTransform;
     public bool sentado = false;
     public CharacterController playerController; // Referencia al CharacterController del jugador.
-
+    public CambioTextoCanvas cambioTextoCanvas;
     private bool primeraColision = true; // Variable para controlar la primera colisión.
+    private int controlasiento = 0;
 
     private void Update()
     {
         if (playerCerca)
         {
-            if (!sentado)
+            if (!sentado || sentado && controlasiento == 2)
             {
                 // La primera vez que colisiona, se sienta automáticamente.
                 if (primeraColision)
                 {
                     Sentarse();
                     primeraColision = false;
+                    controlasiento = 1;
                 }
                 else if (Input.GetKeyDown(KeyCode.F))
                 {
+                    Debug.Log("ESTA SENTADO?" + "" + sentado); //FALSE
                     // A partir de la segunda vez, el jugador puede levantarse o sentarse al presionar la tecla F.
-                    if (sentado)
+                    if (sentado==false && cambioTextoCanvas.final== false)
                     {
+                        Debug.Log("SE ESTA SENTANDO Y ESTA EN FALSE EL FINAL");
+                        Sentarse();
+                    }
+                    else if (sentado == true && cambioTextoCanvas.final == false)
+                    {
+                        Debug.Log("SE ESTA PARANDO Y ESTA EN FALSE EL FINAL");
                         Pararse();
                     }
-                    else
+                    else if (sentado == false && cambioTextoCanvas.final == true)
                     {
+                        Debug.Log("SE ESTA SENTADO Y ESTA EN TRUE EL FINAL");
                         Sentarse();
+                    }
+                    else if (sentado && cambioTextoCanvas.final == true)
+                    {
+                        Debug.Log("Este es el final y no te podras parar");
                     }
                 }
             }
-            else
+            else if (sentado && controlasiento <=1)
             {
+                Debug.Log("ESTA ENTRANDO A DONDE NO DEBIA PTM");
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    controlasiento++;
+                    Debug.Log("SIGUE METIENDOSE DONDE NO ES");
+                    Debug.Log(controlasiento);
                     Pararse();
                 }
             }
