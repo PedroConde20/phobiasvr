@@ -4,13 +4,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public float initialDuration = 22.0f;
-    public float initialMagnitude = 0.05f;
-
-    public float intenseDuration = 15.0f;
-    public float maxMagnitude = 0.5f;
-
-    public float finalDuration = 5.0f;
-    public float transitionDuration = 1.0f;
+    public float maxMagnitude = 3.0f;
+    public float totalTime = 42.0f;
 
     private Vector3 originalPosition;
 
@@ -21,51 +16,32 @@ public class CameraController : MonoBehaviour
 
     public IEnumerator Shake()
     {
-        // Fase 1: Turbulencia suave al inicio
-        yield return Turbulence(originalPosition, initialMagnitude, initialDuration);
+        float elapsed = 0f;
+        float currentMagnitude = 0.05f;
 
-        // Fase 2: Turbulencia intensa
-        yield return Turbulence(originalPosition, maxMagnitude, intenseDuration);
+        while (elapsed < totalTime)
+        {
+            float x = Random.Range(-1f, 1f) * currentMagnitude;
+            float y = Random.Range(-1f, 1f) * currentMagnitude;
 
-        // Espera antes de la transición a la fase final
-        yield return new WaitForSeconds(transitionDuration);
+            transform.localPosition = new Vector3(x, y, originalPosition.z);
 
-        // Fase 3: Turbulencia final (constante)
-        yield return ConstantTurbulence(originalPosition, maxMagnitude, finalDuration);
+            // Incrementa la magnitud hasta el máximo en 37 segundos
+            if (elapsed < 37.0f)
+            {
+                currentMagnitude = Mathf.Lerp(0.05f, maxMagnitude, elapsed / 37.0f);
+            }
+            // Decrementa la magnitud desde el máximo hasta 0 en los últimos 5 segundos
+            else
+            {
+                currentMagnitude = Mathf.Lerp(maxMagnitude, 0.0f, (elapsed - 37.0f) / 5.0f);
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
         // Restaurar la posición original al finalizar la turbulencia
         transform.localPosition = originalPosition;
-    }
-
-    private IEnumerator Turbulence(Vector3 startPosition, float magnitude, float turbulenceDuration)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < turbulenceDuration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            transform.localPosition = new Vector3(x, y, startPosition.z);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private IEnumerator ConstantTurbulence(Vector3 startPosition, float magnitude, float turbulenceDuration)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < turbulenceDuration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            transform.localPosition = new Vector3(x, y, startPosition.z);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
     }
 }
