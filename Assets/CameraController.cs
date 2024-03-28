@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float initialDuration = 22.0f;
     public float maxMagnitude = 3.0f;
-    public float totalTime = 42.0f;
-
+    public float totalTime = 44.0f;
+    public bool finishturbulence = false;
     private Vector3 originalPosition;
 
     private void Start()
@@ -43,5 +42,7 @@ public class CameraController : MonoBehaviour
 
         // Restaurar la posición original al finalizar la turbulencia
         transform.localPosition = originalPosition;
+        finishturbulence=true;
+        Debug.Log("Se termino la turbulencia y la variable esta en true");
     }
 }

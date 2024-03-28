@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SillaController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class SillaController : MonoBehaviour
     public AvionController avionController; // Referencia al AvionController.
 
     public CameraController cameraController;
+
+    public string mensaje = "Apreta E para sentarte";
+    public Text textoCanvas;
     private void Update()
     {
         if (playerCerca)
@@ -24,6 +28,7 @@ public class SillaController : MonoBehaviour
                 {
                     if (audioSource1 != null)
                     {
+                        textoCanvas.text = "El avion esta apunto de despegar! manten la calma mientras que empiece";
                         audioSource1.Play();
                         StartCoroutine(EsperarYReproducirSegundoSonido());
                     }
@@ -48,16 +53,17 @@ public class SillaController : MonoBehaviour
 
     private IEnumerator EsperarYReproducirSegundoSonido()
     {
+        textoCanvas.text = "Manten la calma, comenzará la turbulencia";
         yield return new WaitForSeconds(audioSource1.clip.length + 10f); // Espera por la duración del primer sonido más 10 segundos.
-
         if (audioSource2 != null)
         {
+
             audioSource2.Play();
-            Debug.Log("Esta entrando a avioncontroller != null");
             if (avionController != null)
             {
                 avionController.estadespegando = true;
                 Debug.Log("Esta despegando esta en True");
+                textoCanvas.text = ". . . ";
                 StartCoroutine(cameraController.Shake());
             }
         }
@@ -70,6 +76,7 @@ public class SillaController : MonoBehaviour
             playerCerca = true;
             playerTransform = other.transform;
             playerController = other.GetComponent<CharacterController>();
+            textoCanvas.text = mensaje;
         }
     }
 
