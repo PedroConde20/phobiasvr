@@ -11,9 +11,9 @@ public class TransicionPantallaUsuario : MonoBehaviour
     public Material cieloOscuro; // Asigna el material de cielo oscuro desde el Inspector
     public Text textoCanvas;
     public GameObject objetoADeshabilitar; // El GameObject que quieres deshabilitar
+    public DespegueAvion despegueAvion;
     void Start()
     {
-        // Crear un objeto negro que cubra toda la pantalla
         pantallaNegra = CrearPantalla(Color.black);
     }
 
@@ -21,15 +21,27 @@ public class TransicionPantallaUsuario : MonoBehaviour
     {
         // Crear un objeto negro que cubra toda la pantalla
         pantallaNegra = new GameObject("PantallaNegra");
-        pantallaNegra.transform.parent = Camera.main.transform;
-        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane + 0.1f);
+        pantallaNegra.transform.SetParent(Camera.main.transform);
+
+        // Obtener la dirección de la cámara
+        Vector3 camForward = Camera.main.transform.forward;
+
+        // Calcular la posición para colocar la pantalla negra delante de la cámara
+        Vector3 pantallaPosition = Camera.main.transform.position + camForward * (Camera.main.nearClipPlane + 0.1f); // Añadimos un pequeño desplazamiento adicional
+
+        pantallaNegra.transform.position = pantallaPosition;
+        pantallaNegra.transform.rotation = Camera.main.transform.rotation;
+        pantallaNegra.transform.localScale = Vector3.one;
+
         pantallaNegra.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         pantallaNegra.AddComponent<CanvasRenderer>();
         pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
         pantallaNegra.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         pantallaNegra.SetActive(false);
+
         return pantallaNegra;
     }
+
 
     private IEnumerator OscurecerPantalla()
     {
@@ -67,10 +79,19 @@ public class TransicionPantallaUsuario : MonoBehaviour
         {
             objetoADeshabilitar.SetActive(false);
         }
-
+        DestruirObjetos();
         StartCoroutine(AclararPantalla());
     }
+    private void DestruirObjetos()
+    {
+        // Aquí debes poner el código para destruir los game objects que necesitas
+        GameObject[] objetosADestruir = GameObject.FindGameObjectsWithTag("Destruirlos"); // Reemplaza "TagDelObjeto" por el tag de los objetos que quieres destruir
 
+        foreach (GameObject objeto in objetosADestruir)
+        {
+            Destroy(objeto);
+        }
+    }
     private IEnumerator AclararPantalla()
     {
         float tiempoInicioAclarar = Time.time;
@@ -100,6 +121,12 @@ public class TransicionPantallaUsuario : MonoBehaviour
 
     void Update()
     {
+        if (despegueAvion.crearpantallanegra)
+        {
+            // Crear un objeto negro que cubra toda la pantalla
+
+            Debug.Log("Se esta creando la pantalla negra" + " " + despegueAvion.crearpantallanegra);
+        }
         // Verificar si la variable finishturbulence es true en el CameraController
         if (cameraController != null && cameraController.finishturbulence && estaactualizado)
         {

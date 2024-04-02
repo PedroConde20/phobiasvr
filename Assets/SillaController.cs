@@ -13,7 +13,7 @@ public class SillaController : MonoBehaviour
     private bool sentado = false;
     private CharacterController playerController; // Referencia al CharacterController del jugador.
     public AvionController avionController; // Referencia al AvionController.
-
+    public DespegueAvion despegueavion;
     public CameraController cameraController;
 
     public string mensaje = "Apreta E para sentarte";
@@ -57,7 +57,7 @@ public class SillaController : MonoBehaviour
         yield return new WaitForSeconds(audioSource1.clip.length + 10f); // Espera por la duración del primer sonido más 10 segundos.
         if (audioSource2 != null)
         {
-
+            despegueavion.despegando = true;
             audioSource2.Play();
             if (avionController != null)
             {

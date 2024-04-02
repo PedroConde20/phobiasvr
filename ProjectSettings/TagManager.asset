@@ -32,6 +32,7 @@ TagManager:
   - IndicadorTexto
   - IndicadorTexto2
   - Salida
+  - Destruirlos
   layers:
   - Default
   - TransparentFX
