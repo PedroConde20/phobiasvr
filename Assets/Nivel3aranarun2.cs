@@ -7,7 +7,7 @@ public class Nivel3aranarun2 : MonoBehaviour
     public Animation animacion; // Asegúrate de asignar tu componente de animación desde el inspector de Unity
     public List<ParticleSystem> sistemasDeParticulas; // Lista para almacenar todos los sistemas de partículas
     public Transform arana; // La transformación de la araña
-    public float distanciaMinima = 0.3f; // Distancia mínima para activar la animación
+    public float distanciaMinima = 1f; // Distancia mínima para activar la animación
     void Start()
     {
         // Inicializar la lista de sistemas de partículas

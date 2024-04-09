@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48316282, g: 0.5280332, b: 0.5973567, a: 1}
+  m_IndirectSpecularColor: {r: 0.488055, g: 0.53335387, b: 0.6033495, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 695de7cc04bb50d43b6f06106018b8c0, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 93c25d63899206a43ba4c2dcf38a10ee, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -79209,6 +79209,7 @@ GameObject:
   - component: {fileID: 1645005962}
   - component: {fileID: 1645005961}
   - component: {fileID: 1645005964}
+  - component: {fileID: 1645005966}
   m_Layer: 0
   m_Name: PlayerAirplane
   m_TagString: Player
@@ -79478,6 +79479,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: -0.4, z: 0}
+--- !u!114 &1645005966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645005959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7618ef2b1dedf4bbde6463cabb0b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombreDeEscenaACambiar: AerofobiaTerminal
 --- !u!1001 &1645470558
 PrefabInstance:
   m_ObjectHideFlags: 0
