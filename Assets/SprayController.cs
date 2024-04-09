@@ -5,6 +5,8 @@ public class SprayController : MonoBehaviour
     public ParticleSystem sistemaDeParticulas; // Referencia al Particle System que simula el humo
     public AudioSource sonidoDeSpray; // Referencia al AudioSource del sonido de spray
 
+    bool activado = false; // Variable para rastrear si el spray ha sido activado
+
     void Start()
     {
         // Detenemos el Particle System y el sonido de spray al inicio
@@ -14,32 +16,18 @@ public class SprayController : MonoBehaviour
 
     void Update()
     {
-        // Si la tecla F está siendo presionada
-        if (Input.GetKey(KeyCode.F))
+        // Si la tecla F está siendo presionada y el spray no ha sido activado
+        if (Input.GetKeyDown(KeyCode.F) && !activado)
         {
-            // Si el Particle System no está reproduciéndose, lo iniciamos
-            if (!sistemaDeParticulas.isPlaying)
-            {
-                sistemaDeParticulas.Play();
-            }
+            // Iniciamos el Particle System y el sonido de spray
+            sistemaDeParticulas.Play();
+            sonidoDeSpray.Play();
 
-            // Si el sonido de spray no está reproduciéndose, lo iniciamos
-            if (!sonidoDeSpray.isPlaying)
-            {
-                sonidoDeSpray.Play();
-            }
-        }
-        else
-        {
-            // Si la tecla F no está siendo presionada, detenemos el Particle System y el sonido de spray
-            if (sistemaDeParticulas.isPlaying)
-            {
-                sistemaDeParticulas.Stop();
-            }
-            if (sonidoDeSpray.isPlaying)
-            {
-                sonidoDeSpray.Stop();
-            }
+            // Marcamos que el spray ha sido activado
+            activado = true;
+
+            // Llamamos al método para destruir el GameObject después de 5 segundos
+            Destroy(gameObject, 5f);
         }
     }
 }

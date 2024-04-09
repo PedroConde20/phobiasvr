@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class nivel3aranarun : MonoBehaviour
+public class Nivel3aranarun2 : MonoBehaviour
 {
     public Animation animacion; // Asegúrate de asignar tu componente de animación desde el inspector de Unity
     public List<ParticleSystem> sistemasDeParticulas; // Lista para almacenar todos los sistemas de partículas
@@ -16,7 +16,7 @@ public class nivel3aranarun : MonoBehaviour
     void Update()
     {
         // Verificar si la variable "activo" es true y si la animación actual no es "death1"
-        if (animacion.clip.name != "death1")
+        if (animacion.clip.name != "death2")
         {
             // Verificar si la lista de sistemas de partículas no es nula
             if (sistemasDeParticulas != null)
@@ -41,7 +41,7 @@ public class nivel3aranarun : MonoBehaviour
                             if (distancia <= distanciaMinima)
                             {
                                 // Si está dentro del rango, activa la animación
-                                animacion.Play("death1");
+                                animacion.Play("death2");
                                 Debug.Log("Araña muerta");
                                 return; // Termina el bucle ya que hemos encontrado una colisión dentro del rango
                             }
@@ -65,4 +65,3 @@ public class nivel3aranarun : MonoBehaviour
         sistemasDeParticulas.Remove(sistema);
     }
 }
-
