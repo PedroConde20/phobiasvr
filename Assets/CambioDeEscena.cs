@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class CambioDeEscena : MonoBehaviour
 {
     // Nombre de la escena a la que quieres cambiar
-    public string nombreDeEscenaACambiar = "AerofobiaTerminal";
+    public string nombreDeEscenaACambiar = "ClaustrofobiaCave";
 
     // Actualiza cada frame
     void Update()
