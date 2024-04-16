@@ -31041,6 +31041,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreDeEscenaACambiar: Aerofobia
+--- !u!114 &688632302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688632300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51d9149ed967c4fa48248952e68439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fobia: Aerofobia Terminal
 --- !u!1001 &688886796
 PrefabInstance:
   m_ObjectHideFlags: 0

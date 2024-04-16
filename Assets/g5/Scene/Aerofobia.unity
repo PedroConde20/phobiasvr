@@ -77460,6 +77460,7 @@ GameObject:
   - component: {fileID: 1645005961}
   - component: {fileID: 1645005964}
   - component: {fileID: 1645005966}
+  - component: {fileID: 1645005967}
   m_Layer: 0
   m_Name: PlayerAirplane
   m_TagString: Player
@@ -77742,6 +77743,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreDeEscenaACambiar: ClaustrofobiaCave
+--- !u!114 &1645005967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645005959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51d9149ed967c4fa48248952e68439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fobia: Aerofobia Avion
 --- !u!1001 &1645470558
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12001,6 +12001,7 @@ GameObject:
   - component: {fileID: 1220232761}
   - component: {fileID: 1220232760}
   - component: {fileID: 1220232766}
+  - component: {fileID: 1220232767}
   m_Layer: 0
   m_Name: PlayerAirplane
   m_TagString: Player
@@ -12325,6 +12326,19 @@ MonoBehaviour:
   tiempoLimiteMinutos: 1
   tiempoRestante: 0
   final: 0
+--- !u!114 &1220232767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220232758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51d9149ed967c4fa48248952e68439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fobia: Claustrofobia Avion
 --- !u!1 &1223277667
 GameObject:
   m_ObjectHideFlags: 0
