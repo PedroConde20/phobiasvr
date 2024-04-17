@@ -3,6 +3,7 @@ using UnityEngine;
 public class PauseMenuController : MonoBehaviour
 {
     public GameObject pauseMenuUI;
+    public CronometroController cronometroController;
 
     private bool isPaused = false;
 
@@ -45,6 +46,9 @@ public class PauseMenuController : MonoBehaviour
 
         // Pausar el tiempo
         Time.timeScale = 0f;
+
+        // Pausar el cronómetro
+        cronometroController.ToggleCronometro(false);
     }
 
     void ResumeGame()
@@ -57,5 +61,8 @@ public class PauseMenuController : MonoBehaviour
 
         // Resumir el tiempo
         Time.timeScale = 1f;
+
+        // Reanudar el cronómetro
+        cronometroController.ToggleCronometro(true);
     }
 }

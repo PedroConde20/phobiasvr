@@ -80,7 +80,7 @@ public class Web : MonoBehaviour
             }
         }
     }
-
+    /*
     public IEnumerator RegisterUser(string username, string password, string email)
             {
                 WWWForm form = new WWWForm();
@@ -100,4 +100,6 @@ public class Web : MonoBehaviour
                     Debug.Log(www.downloadHandler.text);
                 }
             }
+    */
         }
+    
