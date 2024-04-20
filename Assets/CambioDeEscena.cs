@@ -18,7 +18,7 @@ public class CambioDeEscena : MonoBehaviour
     }
 
     // Método para cambiar de escena
-    void CambiarEscena()
+    public void CambiarEscena()
     {
         // Conservar este objeto al cambiar de escena
         DontDestroyOnLoad(gameObject);
