@@ -3,29 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class DatosAdmin : MonoBehaviour
 {
-    public string url = "https://unityvrproject.000webhostapp.com/SelectMenu.php"; // Reemplaza esto con la URL de tu script PHP en el servidor
+    public string url = "https://unityvrproject.000webhostapp.com/SelectMenu.php";
+    public Text textoPrefab;
+    public Transform contenedorDeTexto;
 
-
+    public ScrollRect scrollView;
 
     public void ObtenerDatosAdminDesdeBoton()
     {
         StartCoroutine(ObtenerDatosAdmin());
     }
+
     public IEnumerator ObtenerDatosAdmin()
     {
-        // Obtiene el nombre de usuario y el rol DESDE OTRO CODIGO Web.loggedInUsername
         string[] parts = Web.loggedInUsername.Split('.');
         string nombreUsuarioAdministrador = (parts.Length > 1) ? parts[1] : Web.loggedInUsername;
-        string role = (parts.Length > 0) ? parts[0] : "Unknown Role";
 
-        Debug.Log(nombreUsuarioAdministrador);
-        // Construir la URL completa con el nombre de usuario del administrador como parámetro
         string urlCompleta = url + "?nombreUsuarioAdministrador=" + nombreUsuarioAdministrador;
-
-        Debug.Log(urlCompleta);
 
         using (UnityWebRequest www = UnityWebRequest.Get(urlCompleta))
         {
@@ -37,31 +35,36 @@ public class DatosAdmin : MonoBehaviour
             }
             else
             {
-                // Obtener los datos recuperados del servidor
                 string datosRecibidos = www.downloadHandler.text;
 
-                // Dividir los datos por saltos de línea para separar cada conjunto de datos
                 string[] conjuntosDeDatos = datosRecibidos.Split('\n');
 
-                // Recorrer cada conjunto de datos y mostrarlos uno por uno
                 foreach (string conjuntoDeDatos in conjuntosDeDatos)
                 {
-                    // Dividir el conjunto de datos en columnas
                     string[] columnas = conjuntoDeDatos.Split(',');
 
-                    // Si hay suficientes columnas
                     if (columnas.Length >= 6)
                     {
-                        // Obtener los datos del conjunto de datos
                         string nombreCompleto = columnas[0] + " " + columnas[1] + " " + columnas[2];
                         string fobia = columnas[3];
                         string nivel = columnas[4];
                         string duracion = columnas[5];
 
-                        // Mostrar los datos en el debug
-                        Debug.Log("nombreCompleto: " + nombreCompleto + " fobia: " + fobia + " nivel: " + nivel + " duracion: " + duracion);
+                        // Formatear los datos para que estén alineados en columnas
+                        string textoFormateado = string.Format("{0,-30} {1,-20} {2,-20} {3}", nombreCompleto, fobia, nivel, duracion);
+
+                        // Crear un nuevo objeto de texto y configurar su contenido
+                        Text nuevoTexto = Instantiate(textoPrefab, contenedorDeTexto);
+                        nuevoTexto.text = textoFormateado;
+
+                        // Establecer el contenedor de texto como padre del nuevo texto
+                        nuevoTexto.transform.SetParent(contenedorDeTexto, false);
                     }
                 }
+
+                // Ajustar el contenido del ScrollView
+                Canvas.ForceUpdateCanvases();
+                scrollView.normalizedPosition = new Vector2(0, 0);
             }
         }
     }
