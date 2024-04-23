@@ -19,7 +19,7 @@ public class PauseMenuController : MonoBehaviour
     void Update()
     {
         // Verificar si se presionó la tecla de escape
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Fire3")) // Aquí se asume que "Fire3" es el nombre del botón Y del mando
         {
             // Alternar entre pausado y no pausado
             isPaused = !isPaused;
