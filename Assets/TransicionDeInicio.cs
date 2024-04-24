@@ -66,6 +66,7 @@ public class TransicionDeInicio : MonoBehaviour
         if (other.CompareTag("Salida"))
         {
             // Activar el segundo canvas y desactivar el primer canvas
+            segundoCanvas.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane + 0.01f);
             segundoCanvas.gameObject.SetActive(true);
             primerCanvas.gameObject.SetActive(false);
 
