@@ -109,6 +109,7 @@ public class CambioTextoCanvas : MonoBehaviour
 
             // Cambiar el texto del canvas
             textoCanvas.text = "¡Turbulencia superada! Deberias abrir la puerta e ir a tu asiento para aterrizar.";
+
             final = true;
             Debug.Log("la variable final esta en:" + "" + final);
         }

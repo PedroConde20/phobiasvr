@@ -60,7 +60,7 @@ public class PersonSitDown : MonoBehaviour
                     vecesSentado = 1;
                     Debug.Log(siguientetexto + "" + "siguiente texto esta en true");
                 }
-                else if (Input.GetKeyDown(KeyCode.F))
+                else if (Input.GetButtonDown("Fire2"))
                 {
                     vecesSentado++;
                     // A partir de la segunda vez, el jugador puede levantarse o sentarse al presionar la tecla F.
@@ -76,7 +76,7 @@ public class PersonSitDown : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetButtonDown("Fire2"))
                 {
                     // Al presionar F para levantarse, activar el cronómetro para la turbulencia
                     activarTurbulencia = true;

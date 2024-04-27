@@ -35,13 +35,21 @@ public class CronometroController : MonoBehaviour
     }
     void Update()
     {
-        // Obtiene el nombre de usuario y el rol
-        string[] parts = Web.loggedInUsername.Split('.');
-        string username = (parts.Length > 1) ? parts[1] : Web.loggedInUsername;
-        if (cronometroActivo)
+        if (esInvitado == false)
         {
-            tiempoTranscurrido += Time.deltaTime;
-            NombreyCronometro.text = username + " " + FormatTime(tiempoTranscurrido);
+            // Obtiene el nombre de usuario y el rol
+            string[] parts = Web.loggedInUsername.Split('.');
+            string username = (parts.Length > 1) ? parts[1] : Web.loggedInUsername;
+            if (cronometroActivo)
+            {
+                tiempoTranscurrido += Time.deltaTime;
+                NombreyCronometro.text = username + " " + FormatTime(tiempoTranscurrido);
+            }
+            Debug.Log("Controlando datos en el update de cronometro");
+        }
+        else
+        {
+            Debug.Log("No se recopilan datos , es usuario invitado");
         }
     }
 

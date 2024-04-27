@@ -30,16 +30,24 @@ public class DespegueAvion : MonoBehaviour
                 // Calcular velocidad gradualmente.
                 float velocidadActual = Mathf.Lerp(velocidadInicial, velocidadMaxima, tiempoTranscurrido / 10f);
                 // Mover el avión hacia adelante.
-                transform.Translate(Vector3.forward * velocidadActual * Time.deltaTime);
+                transform.Translate(Vector3.right * velocidadActual * Time.deltaTime);
             }
             else if (tiempoTranscurrido < 10f + duracionInclinacionTotal)
             {
-                // Calcular el ángulo de inclinación gradualmente.
+                /*// Calcular el ángulo de inclinación gradualmente.
                 float inclinacionActual = Mathf.Lerp(0f, inclinacionMaxima, (tiempoTranscurrido - 10) / duracionInclinacionTotal);
                 // Aplicar la inclinación al avión.
                 transform.rotation = Quaternion.Euler(-inclinacionActual, rotacionInicial.eulerAngles.y, rotacionInicial.eulerAngles.z);
                 // Mover hacia adelante a velocidad máxima.
-                transform.Translate(Vector3.forward * velocidadMaxima * Time.deltaTime);
+                transform.Translate(Vector3.forward * velocidadMaxima * Time.deltaTime);*/
+                // Calcular el ángulo de inclinación gradualmente (inverso).
+                float inclinacionActual = Mathf.Lerp(0f, -inclinacionMaxima, (tiempoTranscurrido - 10f) / duracionInclinacionTotal);
+                // Aplicar la inclinación al avión en el eje Z.
+                transform.rotation = Quaternion.Euler(rotacionInicial.eulerAngles.x, rotacionInicial.eulerAngles.y, inclinacionActual);
+                // Mover hacia atrás a velocidad máxima.
+                transform.Translate(Vector3.right * velocidadMaxima * Time.deltaTime);
+                // Mover hacia abajo en el eje Y a velocidad máxima.
+                transform.Translate(Vector3.down * velocidadMaxima * Time.deltaTime);
             }
             else
             {

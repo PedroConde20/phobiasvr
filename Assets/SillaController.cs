@@ -18,13 +18,16 @@ public class SillaController : MonoBehaviour
 
     public string mensaje = "Apreta E para sentarte";
     public Text textoCanvas;
+
+    public GameObject referenciaPosicion; // GameObject que servirá como referencia para la posición del jugador
+
     private void Update()
     {
         if (playerCerca)
         {
             if (!sentado)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetButtonDown("Fire1"))
                 {
                     if (audioSource1 != null)
                     {
@@ -33,19 +36,14 @@ public class SillaController : MonoBehaviour
                         StartCoroutine(EsperarYReproducirSegundoSonido());
                     }
 
-                    playerController.enabled = false;
-                    playerTransform.position = transform.position;
-                    playerTransform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
-                    sentado = true;
+                    SitOnChair();
                 }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetButtonDown("Fire3"))
                 {
-                    playerController.enabled = true;
-                    playerTransform.position = new Vector3(playerTransform.position.x, 0.0f, playerTransform.position.z);
-                    sentado = false;
+                    StandUp();
                 }
             }
         }
@@ -67,6 +65,27 @@ public class SillaController : MonoBehaviour
                 StartCoroutine(cameraController.Shake());
             }
         }
+
+        // Desactivar el controlador de personaje para que no se pueda mover
+        playerController.enabled = false;
+    }
+
+    private void SitOnChair()
+    {
+        playerController.enabled = false;
+        Vector3 newPosition = referenciaPosicion.transform.position;
+        newPosition.y -= 0.6f; // Reducir la altura en 0.5 unidades
+        newPosition.z -= 0.07f;
+        newPosition.x += 0.3f;
+        playerTransform.position = newPosition;
+        playerTransform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+        sentado = true;
+    }
+    private void StandUp()
+    {
+        playerController.enabled = true;
+        playerTransform.position = new Vector3(playerTransform.position.x, 0.0f, playerTransform.position.z);
+        sentado = false;
     }
 
     private void OnTriggerEnter(Collider other)

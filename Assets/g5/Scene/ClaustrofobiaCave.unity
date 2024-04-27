@@ -28369,7 +28369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0268dd0403c79e74899021dc0f13708d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cronometroController: {fileID: 0}
+  cronometroController: {fileID: 1477678256}
 --- !u!4 &1270921986
 Transform:
   m_ObjectHideFlags: 0
@@ -36977,8 +36977,8 @@ Transform:
   - {fileID: 491521774}
   - {fileID: 488737530}
   - {fileID: 1629522248}
-  - {fileID: 69642477}
   - {fileID: 897607465}
+  - {fileID: 69642477}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

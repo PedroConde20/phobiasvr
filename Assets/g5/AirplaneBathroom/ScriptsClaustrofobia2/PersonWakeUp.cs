@@ -27,7 +27,7 @@ public class PersonWakeUp : MonoBehaviour
                     primeraColision = false;
                     controlasiento = 1;
                 }
-                else if (Input.GetKeyDown(KeyCode.F))
+                else if (Input.GetButtonDown("Fire2"))
                 {
                     Debug.Log("ESTA SENTADO?" + "" + sentado); //FALSE
                     // A partir de la segunda vez, el jugador puede levantarse o sentarse al presionar la tecla F.
@@ -55,7 +55,7 @@ public class PersonWakeUp : MonoBehaviour
             else if (sentado && controlasiento <=1)
             {
                 Debug.Log("ESTA ENTRANDO A DONDE NO DEBIA PTM");
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetButtonDown("Fire2"))
                 {
                     controlasiento++;
                     Debug.Log("SIGUE METIENDOSE DONDE NO ES");

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class DoorController : MonoBehaviour
 {
     public float openAngle = 90.0f; // Ángulo de apertura de la puerta
@@ -8,6 +9,7 @@ public class DoorController : MonoBehaviour
     private Quaternion startRotation; // Rotación inicial de la puerta
 
     private CambioTextoCanvas cambioTextoCanvas; // Referencia al script CambioTextoCanvas
+
     void Start()
     {
         // Almacena la rotación inicial de la puerta
@@ -18,7 +20,8 @@ public class DoorController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // Comprueba si se ha presionado la tecla "E"
+        // Comprueba si se ha presionado el botón "interactuar" del controlador Oculus
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             InteractWithDoor();
         }
