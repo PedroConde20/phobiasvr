@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BotonNivel1 : MonoBehaviour
+public class botonnivel3 : MonoBehaviour
 {
     [Tooltip("If it isn't valve, it can be lever or button (animated)")]
     public bool isLever = false;
-
+    [Tooltip("If it is false door can't be used")]
+    public bool Locked = false;
     [Space]
     [Tooltip("Animator for button animation")]
     public Animator anim;
@@ -14,35 +15,38 @@ public class BotonNivel1 : MonoBehaviour
     // Referencia al objeto de pantalla negra
     public GameObject pantallaNegra;
 
-    public float activo = 1.0f;
     // Referencia al Canvas que quieres activar
     public GameObject canvas;
 
-
     public GameObject Revista;
     public GameObject Caja;
-    public GameObject Araña;    
-    public GameObject ObjetoFinal;
 
-    public CameraControllerAirplane cameraController; // Referencia al script CameraController
+    public GameObject Araña;
+    public GameObject ObjetoFinal;
+    public GameObject ObjetosNivel3;
+
     // Variable para verificar si el jugador está cerca
+    public bool playerNear = false;
+
     void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
         pantallaNegra = new GameObject("PantallaNegra");
         pantallaNegra.transform.parent = Camera.main.transform;
-        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane );
+        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane + 0.1f);
         pantallaNegra.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         pantallaNegra.AddComponent<CanvasRenderer>();
         pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
         pantallaNegra.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         pantallaNegra.SetActive(false);
         // Obtener la referencia al script CameraController
-  
+
     }
+
+
     void OnTriggerEnter(Collider other)
     {
-        if (isLever)
+        if (!isLever)
         {
             if (anim != null)
             {
@@ -57,7 +61,7 @@ public class BotonNivel1 : MonoBehaviour
             if (anim != null)
                 anim.SetTrigger("ButtonPress");
 
-            Debug.Log("Cambio de escena a la numero 1");
+            Debug.Log("Cambio de escena a la numero 3");
 
             // Activar el oscurecimiento de pantalla
             StartCoroutine(OscurecerYDespuesAclarar());
@@ -67,10 +71,12 @@ public class BotonNivel1 : MonoBehaviour
 
     IEnumerator OscurecerYDespuesAclarar()
     {
+        // Activar la pantalla negra
         pantallaNegra.SetActive(true);
 
+        // Oscurecer la pantalla
         float tiempoInicioOscurecimiento = Time.time;
-        float duracionOscurecimiento = 5f;
+        float duracionOscurecimiento = 2f;
 
         while (Time.time - tiempoInicioOscurecimiento < duracionOscurecimiento)
         {
@@ -86,16 +92,17 @@ public class BotonNivel1 : MonoBehaviour
         // Asegurarse de que la pantalla esté completamente oscura al finalizar
         pantallaNegra.GetComponent<UnityEngine.UI.Image>().color = Color.black;
 
+        // Esperar 2 segundos antes de aclarar la pantalla automáticamente
+        yield return new WaitForSeconds(2f);
 
-        // Esperar 3 segundos antes de aclarar la pantalla automáticamente
-        yield return new WaitForSeconds(3f);
-
-
-        ObjetoFinal.SetActive(false);
         Araña.SetActive(false);
+        ObjetoFinal.SetActive(false);
 
         Caja.SetActive(false);
         Revista.SetActive(false);
+
+        ObjetosNivel3.SetActive(true);
+
         // Activar el Canvas
         canvas.SetActive(true);
 

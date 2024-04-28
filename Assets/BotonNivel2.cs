@@ -27,66 +27,41 @@ public GameObject Caja;
     public bool playerNear = false;
     void Start()
 {
-    // Crear un objeto negro que cubra toda la pantalla
-    pantallaNegra = new GameObject("PantallaNegra");
-    pantallaNegra.transform.parent = Camera.main.transform;
-    pantallaNegra.transform.localPosition = Vector3.zero;
-    pantallaNegra.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-    pantallaNegra.AddComponent<CanvasRenderer>();
-    pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
+        // Crear un objeto negro que cubra toda la pantalla
+        pantallaNegra = new GameObject("PantallaNegra");
+        pantallaNegra.transform.parent = Camera.main.transform;
+        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane + 0.1f);
+        pantallaNegra.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+        pantallaNegra.AddComponent<CanvasRenderer>();
+        pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
+        pantallaNegra.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+        pantallaNegra.SetActive(false);
+        // Obtener la referencia al script CameraController
 
-    // Ajustar el tamaño del objeto negro para cubrir toda la pantalla
-    RectTransform rectTransform = pantallaNegra.GetComponent<RectTransform>();
-    rectTransform.anchorMin = Vector2.zero;
-    rectTransform.anchorMax = Vector2.one;
-    rectTransform.sizeDelta = Vector2.zero;
-
-    pantallaNegra.SetActive(false);
-}
-
-void Update()
-{
-    if (!Locked && playerNear)
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (isLever)
-            {
-                if (anim != null)
-                {
-                    if (anim.GetBool("LeverUp"))
-                        anim.SetBool("LeverUp", false);
-                    else
-                        anim.SetBool("LeverUp", true);
-                }
-            }
-            else
-            {
-                if (anim != null)
-                    anim.SetTrigger("ButtonPress");
-
-                Debug.Log("Cambio de escena a la numero 2");
-
-                // Activar el oscurecimiento de pantalla
-                StartCoroutine(OscurecerYDespuesAclarar());
-
-            }
-        }
     }
-}
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (isLever)
         {
-            playerNear = true;
+            if (anim != null)
+            {
+                if (anim.GetBool("LeverUp"))
+                    anim.SetBool("LeverUp", false);
+                else
+                    anim.SetBool("LeverUp", true);
+            }
         }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
-            playerNear = false;
+            if (anim != null)
+                anim.SetTrigger("ButtonPress");
+
+            Debug.Log("Cambio de escena a la numero 2");
+
+            // Activar el oscurecimiento de pantalla
+            StartCoroutine(OscurecerYDespuesAclarar());
+
         }
     }
     IEnumerator OscurecerYDespuesAclarar()
