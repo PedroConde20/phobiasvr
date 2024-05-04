@@ -39,7 +39,6 @@ public class RegistroAdmin : MonoBehaviour
 
         StartCoroutine(RegistrarNuevoAdmin(usuario, nombre, primerApellido, segundoApellido, contraseña, correoElectronico));
 
-        SceneManager.LoadScene("Login 1");
     }
 
     IEnumerator RegistrarNuevoAdmin(string usuario, string nombre, string primerApellido, string segundoApellido, string contraseña, string correoElectronico)
@@ -63,6 +62,7 @@ public class RegistroAdmin : MonoBehaviour
             else
             {
                 Debug.Log("Administrador registrado correctamente");
+                SceneManager.LoadScene("Login 1");
             }
         }
     }

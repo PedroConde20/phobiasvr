@@ -2426,7 +2426,7 @@ public class OVRManager : MonoBehaviour, OVRMixedRealityCaptureConfiguration
 #endif
         OVRManagerinitialized = false;
     }
-
+   
     private void OnApplicationPause(bool pause)
     {
         if (pause)

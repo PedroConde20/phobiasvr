@@ -8,26 +8,23 @@ public class DoorController : MonoBehaviour
     public bool isOpen = false;    // Variable para rastrear si la puerta está abierta o cerrada
     private Quaternion startRotation; // Rotación inicial de la puerta
 
-    private CambioTextoCanvas cambioTextoCanvas; // Referencia al script CambioTextoCanvas
 
     void Start()
     {
         // Almacena la rotación inicial de la puerta
         startRotation = transform.rotation;
-        // Obtener referencia al script CambioTextoCanvas (asegúrate de que esté en el mismo GameObject o accede de manera adecuada)
-        cambioTextoCanvas = GetComponent<CambioTextoCanvas>();
     }
 
     void Update()
     {
         // Comprueba si se ha presionado el botón "interactuar" del controlador Oculus
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (Input.GetButtonDown("Fire1"))
         {
             InteractWithDoor();
         }
     }
 
-    void InteractWithDoor()
+    public void InteractWithDoor()
     {
         if (isOpen)
         {
@@ -41,14 +38,14 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    void OpenDoor()
+    public void OpenDoor()
     {
         Quaternion targetRotation = Quaternion.Euler(0, openAngle, 0);
         transform.rotation = targetRotation * startRotation;
         isOpen = true;
     }
 
-    void CloseDoor()
+    public void CloseDoor()
     {
         transform.rotation = startRotation;
         isOpen = false;

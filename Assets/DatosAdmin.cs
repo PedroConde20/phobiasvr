@@ -59,6 +59,7 @@ public class DatosAdmin : MonoBehaviour
 
                         // Establecer el contenedor de texto como padre del nuevo texto
                         nuevoTexto.transform.SetParent(contenedorDeTexto, false);
+                        Debug.Log(nombreCompleto + " " +  fobia + " " +  nivel + " "  + duracion);
                     }
                 }
 

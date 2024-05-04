@@ -26,6 +26,7 @@ public class PersonSitDown : MonoBehaviour
     public bool siguientetexto = false;
 
     public bool textoCronometro = false;
+    public bool ahoratepuedesparar = false;
     private void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
@@ -65,7 +66,7 @@ public class PersonSitDown : MonoBehaviour
                     vecesSentado++;
                     // A partir de la segunda vez, el jugador puede levantarse o sentarse al presionar la tecla F.
                     if (sentado)
-                    {
+                    {                    // Al presionar F para levantarse, activar el cronómetro para la turbulencia
                         Pararse();
                     }
                     else
@@ -74,11 +75,10 @@ public class PersonSitDown : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (ahoratepuedesparar == true)
             {
                 if (Input.GetButtonDown("Fire2"))
                 {
-                    // Al presionar F para levantarse, activar el cronómetro para la turbulencia
                     activarTurbulencia = true;
                     Pararse();
                 }
@@ -201,6 +201,7 @@ public class PersonSitDown : MonoBehaviour
 
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
+
     }
 
     private IEnumerator ActivarTurbulenciaDespuesDeEspera()

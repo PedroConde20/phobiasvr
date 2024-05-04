@@ -16,6 +16,7 @@ public class CambioTextoCanvas : MonoBehaviour
     public float tiempoLimiteMinutos = 1f;
     public float tiempoRestante;
     public bool final = false;
+
     private void Start()
     {
         // Obtener la referencia al script DoorController
@@ -33,7 +34,7 @@ public class CambioTextoCanvas : MonoBehaviour
 
         if (textoCanvas != null)
         {
-            textoCanvas.text = "Deberías ir al baño, en unos minutos el avión aterrizará.";
+            textoCanvas.text = "Deberías ir al baño, en unos minutos el avión aterrizará. , Parate con la letra B";
         }
         if (personSitDown != null)
         {
@@ -42,7 +43,7 @@ public class CambioTextoCanvas : MonoBehaviour
             {
                 yield return null;
             }
-
+            doorController.CloseDoor();
             // Cambiar el texto del canvas
             textoCanvas.text = "...";
         }
@@ -62,10 +63,11 @@ public class CambioTextoCanvas : MonoBehaviour
         if (algoAndaMal == true)
         {
             doorController.enabled = false;
+            doorController.CloseDoor();
         }
         // Cambiar el texto del canvas
-        textoCanvas.text = "Oh... algo anda mal allá afuera, tal vez debas pararte con F e investigar.";
-
+        textoCanvas.text = "Oh... algo anda mal allá afuera, tal vez debas pararte con B e investigar.";
+        personSitDown.ahoratepuedesparar=true;
         // Esperar hasta que textoCronometro sea true
         while (!personSitDown.textoCronometro)
         {
@@ -103,8 +105,16 @@ public class CambioTextoCanvas : MonoBehaviour
                 doorController.enabled = true; // Vuelve a activar DoorController
                 // Reiniciar el estado después de que termine la turbulencia
                 algoAndaMal = false;
-                personSitDown.enabled = false;
-                Debug.Log("Entro a la excepcion para detener los codigos de turbulencia");
+
+                if (personSitDown.sentado)
+                {
+                    textoCanvas.text = "¡Parate con B , la turbulencia se superó";
+                }
+                else if (personSitDown.sentado == false)
+                {
+                    personSitDown.enabled = false;
+                    Debug.Log("Entro a la excepcion para detener los codigos de turbulencia");
+                }
             }
 
             // Cambiar el texto del canvas

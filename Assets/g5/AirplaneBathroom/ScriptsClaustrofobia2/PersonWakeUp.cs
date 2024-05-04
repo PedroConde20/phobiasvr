@@ -45,6 +45,8 @@ public class PersonWakeUp : MonoBehaviour
                     {
                         Debug.Log("SE ESTA SENTADO Y ESTA EN TRUE EL FINAL");
                         Sentarse();
+
+                        //ESTA ES LA BUENA
                     }
                     else if (sentado && cambioTextoCanvas.final == true)
                     {
@@ -54,7 +56,7 @@ public class PersonWakeUp : MonoBehaviour
             }
             else if (sentado && controlasiento <=1)
             {
-                Debug.Log("ESTA ENTRANDO A DONDE NO DEBIA PTM");
+                Debug.Log("ESTA ENTRANDO A DONDE NO DEBIA");
                 if (Input.GetButtonDown("Fire2"))
                 {
                     controlasiento++;
