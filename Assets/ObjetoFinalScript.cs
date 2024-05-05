@@ -12,7 +12,7 @@ public class ObjetoFinalScript : MonoBehaviour
     private MeshRenderer[] meshRenderers; // Array de componentes MeshRenderer
     private SkinnedMeshRenderer skinnedMeshRenderer; // Referencia al componente SkinnedMeshRenderer
     private bool isMoving; // Indica si el objeto hijo está en movimiento
-
+    public bool esElFinalNivel2 = false;
     private void Start()
     {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
@@ -56,6 +56,7 @@ public class ObjetoFinalScript : MonoBehaviour
 
             // Destruir el objeto especificado
             Destroy(objectToDestroy);
+            esElFinalNivel2 = true;
         }
     }
 

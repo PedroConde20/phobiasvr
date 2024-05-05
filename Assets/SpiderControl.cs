@@ -19,6 +19,7 @@ public class SpiderControl : MonoBehaviour
 
     private Rigidbody rb; // Referencia al componente Rigidbody
 
+    public bool arañaencaja = false;
     void Start()
     {
         animation = GetComponent<Animation>(); // Obtener el componente Animation
@@ -93,6 +94,7 @@ public class SpiderControl : MonoBehaviour
 
             // Destruir el objeto cuando colisiona con la caja o la tapa
             Destroy(gameObject);
+            arañaencaja = true;
         }
     }
 }

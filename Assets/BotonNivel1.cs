@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BotonNivel1 : MonoBehaviour
 {
-    [Tooltip("If it isn't valve, it can be lever or button (animated)")]
-    public bool isLever = false;
 
     [Space]
     [Tooltip("Animator for button animation")]
@@ -21,52 +19,43 @@ public class BotonNivel1 : MonoBehaviour
 
     public GameObject Revista;
     public GameObject Caja;
-    public GameObject Araña;    
+    public GameObject Araña;
     public GameObject ObjetoFinal;
 
     public CameraControllerAirplane cameraController; // Referencia al script CameraController
     // Variable para verificar si el jugador está cerca
-    void Start()
+
+    public bool ActivarTextosNivel1 = false;
+    public void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
         pantallaNegra = new GameObject("PantallaNegra");
         pantallaNegra.transform.parent = Camera.main.transform;
-        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane );
+        pantallaNegra.transform.localPosition = new Vector3(0, 0, Camera.main.nearClipPlane + 0.1f);
         pantallaNegra.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         pantallaNegra.AddComponent<CanvasRenderer>();
         pantallaNegra.AddComponent<UnityEngine.UI.Image>().color = Color.black;
         pantallaNegra.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         pantallaNegra.SetActive(false);
         // Obtener la referencia al script CameraController
-  
+
     }
     void OnTriggerEnter(Collider other)
     {
-        if (isLever)
-        {
-            if (anim != null)
-            {
-                if (anim.GetBool("LeverUp"))
-                    anim.SetBool("LeverUp", false);
-                else
-                    anim.SetBool("LeverUp", true);
-            }
-        }
-        else
-        {
-            if (anim != null)
-                anim.SetTrigger("ButtonPress");
+        if (anim != null)
+            anim.SetTrigger("ButtonPress");
 
-            Debug.Log("Cambio de escena a la numero 1");
+        Debug.Log("Cambio de escena a la numero 1");
 
-            // Activar el oscurecimiento de pantalla
-            StartCoroutine(OscurecerYDespuesAclarar());
+        // Activar el oscurecimiento de pantalla
+        StartCoroutine(OscurecerYDespuesAclarar());
 
-        }
     }
 
     IEnumerator OscurecerYDespuesAclarar()
     {
+
+        Debug.Log("Se esta iniciando el oscurecimiento de pantalla");
         pantallaNegra.SetActive(true);
 
         float tiempoInicioOscurecimiento = Time.time;
@@ -117,6 +106,8 @@ public class BotonNivel1 : MonoBehaviour
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
         // Destruir objetos con los tags "Araña" y "ObjetosFinal"
+        ActivarTextosNivel1 = true;
 
+        Debug.Log("El ActivarTextoNivel1 esta en: " + ActivarTextosNivel1);
     }
 }

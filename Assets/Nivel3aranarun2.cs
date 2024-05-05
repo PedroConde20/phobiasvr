@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Nivel3aranarun2 : MonoBehaviour
@@ -31,10 +32,19 @@ public class Nivel3aranarun2 : MonoBehaviour
                         // Si está dentro del rango, activa la animación
                         animacion.Play(animacionselec);
                         Debug.Log("Araña muerta");
+                        StartCoroutine(DestruirDespuesDeAnimacion());
                         return; // Termina el bucle ya que hemos encontrado una colisión dentro del rango
                     }
                 }
             }
         }
+    }
+    IEnumerator DestruirDespuesDeAnimacion()
+    {
+        // Esperar hasta que la animación termine
+        yield return new WaitForSeconds(animacion[animacionselec].length + 10f);
+
+        // Destruir el objeto
+        Destroy(gameObject);
     }
 }

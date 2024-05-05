@@ -18,8 +18,8 @@ public class botonnivel3 : MonoBehaviour
     // Referencia al Canvas que quieres activar
     public GameObject canvas;
 
-    public GameObject Revista;
-    public GameObject Caja;
+    //public GameObject Revista;
+    //public GameObject Caja;
 
     public GameObject Araña;
     public GameObject ObjetoFinal;
@@ -27,6 +27,8 @@ public class botonnivel3 : MonoBehaviour
 
     // Variable para verificar si el jugador está cerca
     public bool playerNear = false;
+
+    public bool Activartextosnivel3= false;
 
     void Start()
     {
@@ -46,18 +48,6 @@ public class botonnivel3 : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!isLever)
-        {
-            if (anim != null)
-            {
-                if (anim.GetBool("LeverUp"))
-                    anim.SetBool("LeverUp", false);
-                else
-                    anim.SetBool("LeverUp", true);
-            }
-        }
-        else
-        {
             if (anim != null)
                 anim.SetTrigger("ButtonPress");
 
@@ -66,7 +56,6 @@ public class botonnivel3 : MonoBehaviour
             // Activar el oscurecimiento de pantalla
             StartCoroutine(OscurecerYDespuesAclarar());
 
-        }
     }
 
     IEnumerator OscurecerYDespuesAclarar()
@@ -98,9 +87,6 @@ public class botonnivel3 : MonoBehaviour
         Araña.SetActive(false);
         ObjetoFinal.SetActive(false);
 
-        Caja.SetActive(false);
-        Revista.SetActive(false);
-
         ObjetosNivel3.SetActive(true);
 
         // Activar el Canvas
@@ -124,6 +110,6 @@ public class botonnivel3 : MonoBehaviour
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
         // Destruir objetos con los tags "Araña" y "ObjetosFinal"
-
+        Activartextosnivel3 = true;
     }
 }

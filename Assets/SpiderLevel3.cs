@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpiderLevel3 : MonoBehaviour
@@ -27,9 +28,18 @@ public class SpiderLevel3 : MonoBehaviour
                 {
                     animator.SetBool("IsDie", true);
                     Debug.Log("Araña muerta");
-                    return; // Termina el método ya que hemos encontrado una partícula dentro del rango
+                    StartCoroutine(DestruirDespuesDeAnimacion());
+                    return; // Terminar el método ya que hemos encontrado una partícula dentro del rango
                 }
             }
         }
+    }
+    IEnumerator DestruirDespuesDeAnimacion()
+    {
+        // Esperar hasta que la animación de muerte termine
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 10f);
+
+        // Destruir el objeto de la araña
+        Destroy(gameObject);
     }
 }
