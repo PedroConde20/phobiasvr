@@ -21,7 +21,7 @@ public class TextAracnofobiaController : MonoBehaviour
     public GameObject[] objetosAEscuchar; // Lista de GameObjects a ser verificados
     public bool todosDestruidos = false; // Variable que se volverá true cuando todos los GameObjects sean destruidos
 
-    DatosAntesDeSalir datosAntesDeSalir;
+    public DatosAntesDeSalir datosAntesDeSalir;
     public void Start()
     {
         // Inicialmente, mostramos el primer texto

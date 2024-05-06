@@ -123752,6 +123752,7 @@ MonoBehaviour:
   - {fileID: 1075041656}
   - {fileID: 444944138}
   todosDestruidos: 0
+  datosAntesDeSalir: {fileID: 1222804519}
 --- !u!114 &7223479024749097856
 MonoBehaviour:
   m_ObjectHideFlags: 0

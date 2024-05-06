@@ -33079,6 +33079,7 @@ MonoBehaviour:
   pantallaBlanca: {fileID: 0}
   primerCanvas: {fileID: 431401586}
   segundoCanvas: {fileID: 1210044251}
+  datosAntesDeSalir: {fileID: 1270921985}
 --- !u!114 &1477678255
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -48214,6 +48214,7 @@ MonoBehaviour:
   textoCanvas: {fileID: 1724776979}
   objetoADeshabilitar: {fileID: 1028194002}
   despegueAvion: {fileID: 432218002}
+  datosAntesDeSalir: {fileID: 877526428}
 --- !u!4 &947822543 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dd65707c1d8a7f647b32e29d30d57961, type: 3}

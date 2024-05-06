@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TransicionDeInicio : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class TransicionDeInicio : MonoBehaviour
     public Canvas primerCanvas;
     public Canvas segundoCanvas;
 
+
+    public DatosAntesDeSalir datosAntesDeSalir;
     void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
@@ -21,7 +24,13 @@ public class TransicionDeInicio : MonoBehaviour
         // Iniciar la transición al inicio del programa
         StartCoroutine(AclararPantalla(pantallaNegra));
     }
+    public void CambiarEscenaMenu()
+    {
 
+        // Aquí cargamos la escena del menú principal
+        datosAntesDeSalir.OnApplicationQuit();
+        SceneManager.LoadScene("MenuV");
+    }
     private GameObject CrearPantalla(Color color)
     {
         GameObject pantalla = new GameObject("Pantalla");
@@ -72,6 +81,10 @@ public class TransicionDeInicio : MonoBehaviour
 
             // Activar la pantalla blanca sin transición
             pantallaBlanca.SetActive(true);
+
+
+            // Llama al método para cambiar de escena después de 5 segundos
+            Invoke("CambiarEscenaMenu", 3f);
         }
     }
 }

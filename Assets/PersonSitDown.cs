@@ -27,7 +27,8 @@ public class PersonSitDown : MonoBehaviour
 
     public bool textoCronometro = false;
     public bool ahoratepuedesparar = false;
-    private void Start()
+
+    public void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
         pantallaNegra = new GameObject("PantallaNegra");
@@ -46,7 +47,7 @@ public class PersonSitDown : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
         if (playerCerca)
         {
@@ -113,7 +114,7 @@ public class PersonSitDown : MonoBehaviour
 
 
     }
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -123,7 +124,7 @@ public class PersonSitDown : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -131,7 +132,7 @@ public class PersonSitDown : MonoBehaviour
         }
     }
 
-    private void Sentarse()
+    public void Sentarse()
     {
         playerController.enabled = false;
         playerTransform.position = transform.position;
@@ -139,7 +140,7 @@ public class PersonSitDown : MonoBehaviour
         sentado = true;
     }
 
-    private void Pararse()
+    public void Pararse()
     {
         playerController.enabled = true;
         playerTransform.position = new Vector3(playerTransform.position.x, 0.0f, playerTransform.position.z);
@@ -155,7 +156,7 @@ public class PersonSitDown : MonoBehaviour
         cameraController.StopShaking();
     }
 
-    private IEnumerator OscurecerPantalla()
+    public IEnumerator OscurecerPantalla()
     {
         pantallaNegra.SetActive(true);
 
@@ -183,7 +184,7 @@ public class PersonSitDown : MonoBehaviour
         StartCoroutine(AclararPantalla());
     }
 
-    private IEnumerator AclararPantalla()
+    public IEnumerator AclararPantalla()
     {
         float tiempoInicioAclarar = Time.time;
         float duracionAclarar = 2f; // Puedes ajustar la duración según tus preferencias
@@ -202,9 +203,10 @@ public class PersonSitDown : MonoBehaviour
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
 
+
     }
 
-    private IEnumerator ActivarTurbulenciaDespuesDeEspera()
+    public IEnumerator ActivarTurbulenciaDespuesDeEspera()
     {
         // Esperar 5 segundos antes de activar la turbulencia
         yield return new WaitForSeconds(5f);
@@ -212,5 +214,6 @@ public class PersonSitDown : MonoBehaviour
         // Activar la turbulencia después de 5 segundos
         turbulenciaAvion.turbulenciaActivada = true;
         textoCronometro = true;
+
     }
 }

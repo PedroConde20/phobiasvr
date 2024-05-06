@@ -8,7 +8,7 @@ public class VerPasajero : MonoBehaviour
 {
     public float prueba = 1f;
     private bool cambioDeEscenaIniciado = false;
-
+    public DatosAntesDeSalir datosAntesDeSalir;
     private void OnTriggerEnter(Collider other)
     {
         // Verifica si el objeto que colisionó tiene el tag "Player"
@@ -23,8 +23,16 @@ public class VerPasajero : MonoBehaviour
             Lightmapping.Clear();
             Lightmapping.Bake();
 
-            // Desactivar la recarga automática de la escena
-            SceneManager.LoadScene("Aerofobia", LoadSceneMode.Single);
+            // Llama al método para cambiar de escena después de 5 segundos
+            Invoke("CambiarEscenaMenu", 3f);
         }
+
+    }
+    public void CambiarEscenaMenu()
+    {
+
+        // Aquí cargamos la escena del menú principal
+        datosAntesDeSalir.OnApplicationQuit();
+        SceneManager.LoadScene("MenuV");
     }
 }

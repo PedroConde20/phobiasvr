@@ -6,40 +6,33 @@ public class AudioManagerAirplaneClaus : MonoBehaviour
 {
     public AudioSource[] audioSources;
 
-    void Start()
+    public CambioTextoCanvas cambioTextoCanvas;
+    public void Start()
     {
-        if (audioSources.Length > 0 && audioSources[0] != null)
-        {
-            // Establece el primer audio en bucle
-            audioSources[0].loop = true;
-            // Reproduce el primer audio
-            audioSources[0].Play();
-        }
-        else
-        {
-            Debug.LogWarning("No se encontraron audioSources asignados o el primer audio es nulo.");
-        }
+
     }
 
-    // Método para reproducir un sonido en un AudioSource específico
-    public void PlaySound(int index)
+    public void Update()
     {
-        if (index >= 0 && index < audioSources.Length)
+        // Revisar si personSitDown.sonidoAvisoTurbulencia es true
+        if (cambioTextoCanvas.sonidoAvisoTurbulencia==true)
         {
-            audioSources[index].Play();
-        }
-        else
-        {
-            Debug.LogWarning("Index out of range.");
-        }
-    }
 
-    // Método para detener todos los sonidos
-    public void StopAllSounds()
-    {
-        foreach (var audioSource in audioSources)
-        {
-            audioSource.Stop();
+            // Reproducir el tercer sonido (índice 1) sin loop
+            audioSources[1].Play();
+
+            // Revisar si personSitDown.sonidoTurbulencia es true
+            if (cambioTextoCanvas.sonidoTurbulencia== true)
+            {
+                // Reproducir el primer sonido (índice 2)
+                audioSources[2].Play();
+            }
+            else
+            {
+                // Si personSitDown.sonidoTurbulencia es false, detener el primer sonido
+                audioSources[2].Stop();
+            }
         }
+
     }
 }

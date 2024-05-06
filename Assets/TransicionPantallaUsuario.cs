@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TransicionPantallaUsuario : MonoBehaviour
 {
@@ -12,9 +13,19 @@ public class TransicionPantallaUsuario : MonoBehaviour
     public Text textoCanvas;
     public GameObject objetoADeshabilitar; // El GameObject que quieres deshabilitar
     public DespegueAvion despegueAvion;
+
+    public DatosAntesDeSalir datosAntesDeSalir;
     void Start()
     {
         pantallaNegra = CrearPantalla(Color.black);
+    }
+
+    public void CambiarEscenaMenu()
+    {
+
+        // Aquí cargamos la escena del menú principal
+        datosAntesDeSalir.OnApplicationQuit();
+        SceneManager.LoadScene("MenuV");
     }
 
     private GameObject CrearPantalla(Color color)
@@ -111,6 +122,9 @@ public class TransicionPantallaUsuario : MonoBehaviour
         // Desactivar la pantalla negra al finalizar el aclarado
         pantallaNegra.SetActive(false);
         textoCanvas.text = "Pasaron varias horas desde el despegue, al parecer esta lloviendo";
+
+        // Llama al método para cambiar de escena después de 5 segundos
+        Invoke("CambiarEscenaMenu", 5f);
     }
 
     // Método para cambiar el cielo

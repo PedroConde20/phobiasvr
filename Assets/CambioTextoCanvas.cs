@@ -17,8 +17,22 @@ public class CambioTextoCanvas : MonoBehaviour
     public float tiempoRestante;
     public bool final = false;
 
-    private void Start()
+
+    public AudioSource[] audioSources;
+
+    public bool sonidoTurbulencia = false;
+    public bool sonidoAvisoTurbulencia = false;
+    public bool sonidoObjetosTurbulencia = false;
+
+
+    private bool sonidoTurbulenciaActivo = false;
+    public Light luzParpadeante; // Referencia al componente Light que parpadeará
+    public void Start()
     {
+        if (luzParpadeante == null)
+        {
+            Debug.LogError("¡Error! No se ha asignado un componente de luz.");
+        }
         // Obtener la referencia al script DoorController
         doorController = FindObjectOfType<DoorController>();
         if (doorController == null)
@@ -28,7 +42,43 @@ public class CambioTextoCanvas : MonoBehaviour
         StartCoroutine(EsperarYCambiarTexto());
     }
 
-    private IEnumerator EsperarYCambiarTexto()
+    void Update()
+    {
+        // Verificar si el texto actual contiene "turbulencia"
+        if (textoCanvas.text.Contains("turbulencia"))
+        {
+            // Si el sonido de turbulencia no está activo, activarlo
+            if (!sonidoTurbulenciaActivo)
+            {
+                sonidoTurbulenciaActivo = true;
+                audioSources[2].Play();
+            }
+            // Iniciar el parpadeo de la luz
+            StartCoroutine(ParpadearLuz(0.5f)); // Tiempo de espera de 0.5 segundos entre cambios de estado
+        }
+        else
+        {
+            // Si el sonido de turbulencia está activo, desactivarlo
+            if (sonidoTurbulenciaActivo)
+            {
+                sonidoTurbulenciaActivo = false;
+                audioSources[2].Stop();
+            }
+            // Detener el parpadeo de la luz
+            StopCoroutine(ParpadearLuz(0.5f)); // Detener la corutina de parpadeo
+            luzParpadeante.enabled = true; // Asegurarse de que la luz esté encendida
+        }
+    }
+    // Método para controlar el parpadeo de la luz con una velocidad personalizada
+    private IEnumerator ParpadearLuz(float tiempoEspera)
+    {
+        while (true)
+        {
+            luzParpadeante.enabled = !luzParpadeante.enabled; // Cambiar el estado de la luz (encendido/apagado)
+            yield return new WaitForSeconds(tiempoEspera); // Esperar el tiempo especificado antes de cambiar nuevamente
+        }
+    }
+    public IEnumerator EsperarYCambiarTexto()
     {
         yield return new WaitForSeconds(10f);
 
@@ -46,6 +96,13 @@ public class CambioTextoCanvas : MonoBehaviour
             doorController.CloseDoor();
             // Cambiar el texto del canvas
             textoCanvas.text = "...";
+            sonidoAvisoTurbulencia = true;
+            if (sonidoAvisoTurbulencia)
+            {
+                // Reproducir el tercer sonido (índice 1) sin loop
+                audioSources[1].Play();
+                Debug.Log("El Sonido de aviso turbulencia esta en " + sonidoAvisoTurbulencia);
+            }
         }
         // Esperar hasta que pantallaNegraActiva sea true
         while (!personSitDown.pantallaNegraActiva)
@@ -67,7 +124,7 @@ public class CambioTextoCanvas : MonoBehaviour
         }
         // Cambiar el texto del canvas
         textoCanvas.text = "Oh... algo anda mal allá afuera, tal vez debas pararte con B e investigar.";
-        personSitDown.ahoratepuedesparar=true;
+        personSitDown.ahoratepuedesparar = true;
         // Esperar hasta que textoCronometro sea true
         while (!personSitDown.textoCronometro)
         {
@@ -81,7 +138,7 @@ public class CambioTextoCanvas : MonoBehaviour
         InvokeRepeating("ActualizarContador", 0f, 1f);
 
     }
-    private void ActualizarContador()
+    public void ActualizarContador()
     {
         // Verifica si aún hay tiempo restante
         if (tiempoRestante > 0f)
@@ -94,7 +151,10 @@ public class CambioTextoCanvas : MonoBehaviour
 
             // Actualiza el texto del Canvas
             textoCanvas.text = $"Espera a que termine la turbulencia en {minutos:00}:{segundos:00}";
+
+            Debug.Log("El Sonido de turbulencia esta en " + sonidoTurbulencia);
         }
+
         else
         {
             if (doorController != null && cameraControllerAirplane != null && turbulenciaAvion != null)
@@ -110,7 +170,7 @@ public class CambioTextoCanvas : MonoBehaviour
                 {
                     textoCanvas.text = "¡Parate con B , la turbulencia se superó";
                 }
-                else if (personSitDown.sentado == false)
+                if (personSitDown.sentado == false)
                 {
                     personSitDown.enabled = false;
                     Debug.Log("Entro a la excepcion para detener los codigos de turbulencia");
@@ -120,12 +180,13 @@ public class CambioTextoCanvas : MonoBehaviour
             // Cambiar el texto del canvas
             textoCanvas.text = "¡Turbulencia superada! Deberias abrir la puerta e ir a tu asiento para aterrizar.";
 
+            Debug.Log("El Sonido de turbulencia esta en " + sonidoTurbulencia);
             final = true;
             Debug.Log("la variable final esta en:" + "" + final);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("IndicadorTexto"))
         {

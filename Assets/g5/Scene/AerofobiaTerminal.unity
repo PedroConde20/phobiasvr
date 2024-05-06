@@ -19854,6 +19854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prueba: 1
+  datosAntesDeSalir: {fileID: 2111650104}
 --- !u!1001 &401019772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44094,8 +44095,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885159958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 81.16, y: 3.5982, z: 253.64}
-  m_LocalScale: {x: 24.056242, y: 4.9069705, z: 24.056242}
+  m_LocalPosition: {x: 81.16, y: 4.64, z: 253.64}
+  m_LocalScale: {x: 24.056242, y: 3.1420314, z: 24.056242}
   m_Children:
   - {fileID: 188677345}
   - {fileID: 689245944}

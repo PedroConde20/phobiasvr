@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PersonWakeUp : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PersonWakeUp : MonoBehaviour
     public CambioTextoCanvas cambioTextoCanvas;
     private bool primeraColision = true; // Variable para controlar la primera colisión.
     private int controlasiento = 0;
-
+    public DatosAntesDeSalir datosAntesDeSalir;
     private void Update()
     {
         if (playerCerca)
@@ -47,6 +48,8 @@ public class PersonWakeUp : MonoBehaviour
                         Sentarse();
 
                         //ESTA ES LA BUENA
+                        // Llama al método para cambiar de escena después de 5 segundos
+                        Invoke("CambiarEscenaMenu", 5f);
                     }
                     else if (sentado && cambioTextoCanvas.final == true)
                     {
@@ -68,6 +71,13 @@ public class PersonWakeUp : MonoBehaviour
         }
     }
 
+    public void CambiarEscenaMenu()
+    {
+
+        // Aquí cargamos la escena del menú principal
+        datosAntesDeSalir.OnApplicationQuit();
+        SceneManager.LoadScene("MenuV");
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
