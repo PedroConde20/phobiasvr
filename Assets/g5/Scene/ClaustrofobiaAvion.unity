@@ -14538,7 +14538,7 @@ MonoBehaviour:
   tiempoTranscurrido: 0
   cronometroActivo: 1
   FobiaID: 2
-  Nivel: 3
+  Nivel: 5
   esInvitado: 0
   tiempotrans: 0
 --- !u!82 &1008990041
