@@ -49,21 +49,15 @@ public class DatosAdmin : MonoBehaviour
                         string fobia = columnas[3];
                         string nivel = columnas[4];
                         string duracion = columnas[5];
-
-                        // Formatear los datos para que estén alineados en columnas
                         string textoFormateado = string.Format("{0,-30} {1,-20} {2,-20} {3}", nombreCompleto, fobia, nivel, duracion);
-
-                        // Crear un nuevo objeto de texto y configurar su contenido
                         Text nuevoTexto = Instantiate(textoPrefab, contenedorDeTexto);
                         nuevoTexto.text = textoFormateado;
-
-                        // Establecer el contenedor de texto como padre del nuevo texto
                         nuevoTexto.transform.SetParent(contenedorDeTexto, false);
                         Debug.Log(nombreCompleto + " " +  fobia + " " +  nivel + " "  + duracion);
                     }
                 }
 
-                // Ajustar el contenido del ScrollView
+                // Se ajusta el conttenido del ScrollView
                 Canvas.ForceUpdateCanvases();
                 scrollView.normalizedPosition = new Vector2(0, 0);
             }

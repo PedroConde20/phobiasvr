@@ -96,7 +96,7 @@ public class TransicionPantallaUsuario : MonoBehaviour
     private void DestruirObjetos()
     {
         // Aquí debes poner el código para destruir los game objects que necesitas
-        GameObject[] objetosADestruir = GameObject.FindGameObjectsWithTag("Destruirlos"); // Reemplaza "TagDelObjeto" por el tag de los objetos que quieres destruir
+        GameObject[] objetosADestruir = GameObject.FindGameObjectsWithTag("Destruirlos"); 
 
         foreach (GameObject objeto in objetosADestruir)
         {
