@@ -14,12 +14,12 @@ public class PersonSitDown : MonoBehaviour
     public GameObject pantallaNegra;
     public bool pantallaNegraActiva = false;
 
-    public TurbulenciaAvion turbulenciaAvion; // Referencia al script de turbulencia
+    public TurbulenciaAvion turbulenciaAvion; //Control de la turbulencia
     public bool activarTurbulencia = false;
 
     public int vecesSentado = 0;
 
-    public CameraControllerAirplane cameraController; // Referencia al script CameraController
+    public CameraControllerAirplane cameraController; // El Control de la camara
 
     public float magnitudeperfectas = 0.05f;
 
@@ -28,6 +28,8 @@ public class PersonSitDown : MonoBehaviour
     public bool textoCronometro = false;
     public bool ahoratepuedesparar = false;
 
+
+    public GameObject Barreras; // Las barreras
     public void Start()
     {
         // Crear un objeto negro que cubra toda la pantalla
@@ -215,5 +217,10 @@ public class PersonSitDown : MonoBehaviour
         turbulenciaAvion.turbulenciaActivada = true;
         textoCronometro = true;
 
+        // Activar las barreras después de 5 segundos
+        if (Barreras != null)
+        {
+            Barreras.SetActive(true);
+        }
     }
 }

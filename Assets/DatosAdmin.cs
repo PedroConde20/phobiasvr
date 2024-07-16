@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class DatosAdmin : MonoBehaviour
 {
-    public string url = "https://unityvrproject.000webhostapp.com/SelectMenu.php";
+    public string url = "https://unityvrprojectfobia.com/SelectMenu.php";
     public Text textoPrefab;
     public Transform contenedorDeTexto;
 

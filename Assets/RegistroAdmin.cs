@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class RegistroAdmin : MonoBehaviour
 {
-    public string url = "https://unityvrproject.000webhostapp.com/Register.php";
+    public string url = "https://unityvrprojectfobia.com/Register.php";
     public Text usuarioInput;
     public Text nombreInput;
     public Text primerApellidoInput;

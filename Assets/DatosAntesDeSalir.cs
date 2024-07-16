@@ -49,7 +49,7 @@ public class DatosAntesDeSalir : MonoBehaviour
     IEnumerator EnviarDatosAlServidor(string username, int nivelID, string tiempoTranscurrido)
     {
         // Construir la URL del script PHP en el servidor
-        string url = "https://unityvrproject.000webhostapp.com/guardarTiempo.php";
+        string url = "https://unityvrprojectfobia.com/guardarTiempo.php";
 
         // Crear un formulario para enviar los datos al script PHP
         WWWForm form = new WWWForm();

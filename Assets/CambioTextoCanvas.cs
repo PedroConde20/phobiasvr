@@ -26,7 +26,9 @@ public class CambioTextoCanvas : MonoBehaviour
 
 
     private bool sonidoTurbulenciaActivo = false;
-    public Light luzParpadeante; // Referencia al componente Light que parpadeará
+    public Light luzParpadeante; //Luz parpadeante Scripta
+
+    public GameObject Barreras; // Las barreras
     public void Start()
     {
         if (luzParpadeante == null)
@@ -162,6 +164,10 @@ public class CambioTextoCanvas : MonoBehaviour
                 cameraControllerAirplane.enabled = false;
                 turbulenciaAvion.enabled = false;
 
+                if (Barreras != null)
+                {
+                    Barreras.SetActive(false);
+                }
                 doorController.enabled = true; // Vuelve a activar DoorController
                 // Reiniciar el estado después de que termine la turbulencia
                 algoAndaMal = false;

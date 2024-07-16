@@ -43,7 +43,7 @@ public class CronometroController : MonoBehaviour
             if (cronometroActivo)
             {
                 tiempoTranscurrido += Time.deltaTime;
-                NombreyCronometro.text = username + " " + FormatTime(tiempoTranscurrido) + Nivel;
+                NombreyCronometro.text = username + " " + FormatTime(tiempoTranscurrido);
             }
             Debug.Log("Controlando datos en el update de cronometro");
         }

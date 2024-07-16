@@ -49,7 +49,7 @@ public class Web : MonoBehaviour
         form.AddField("loginUser", username);
         form.AddField("loginPass", password);
 
-        UnityWebRequest www = UnityWebRequest.Post("https://unityvrproject.000webhostapp.com/login.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("https://unityvrprojectfobia.com/login.php", form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
