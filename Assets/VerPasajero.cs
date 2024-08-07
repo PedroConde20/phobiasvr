@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -17,15 +16,8 @@ public class VerPasajero : MonoBehaviour
         {
             cambioDeEscenaIniciado = true;
 
-            // Forzar la persistencia de datos de iluminación
-            UnityEditor.Lightmapping.giWorkflowMode = UnityEditor.Lightmapping.GIWorkflowMode.OnDemand;
-
-            // Forzar el bake de la iluminación
-            Lightmapping.Clear();
-            Lightmapping.Bake();
-
             // Llama al método para cambiar de escena después de 5 segundos
-            Invoke("CambiarEscenaMenu", 3f);
+            Invoke("CambiarEscenaMenu", 1f);
         }
 
     }
@@ -37,5 +29,3 @@ public class VerPasajero : MonoBehaviour
         SceneManager.LoadScene("MenuV");
     }
 }
-
-#endif

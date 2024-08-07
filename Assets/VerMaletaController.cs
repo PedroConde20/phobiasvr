@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -15,9 +16,11 @@ public class VerMaletaController : MonoBehaviour
         // Verifica si el objeto que colisionó tiene el tag "Maleta"
         if (other.CompareTag("Maleta"))
         {
+
             // Destruye el objeto "VerMaleta"
             Destroy(gameObject);
 
+            Debug.Log("Se va a cambiar de escena en 10 segundos");
             // Actualiza el texto del Canvas a "Ahora entra al avión"
             if (canvas != null)
             {
@@ -26,11 +29,11 @@ public class VerMaletaController : MonoBehaviour
                 {
                     textoCanvas.text = nuevoTexto;
 
-                    // Si hay un objeto asignado, hazlo visible
                     if (objetoVisible != null)
                     {
                         objetoVisible.SetActive(true);
                     }
+
                 }
             }
         }
