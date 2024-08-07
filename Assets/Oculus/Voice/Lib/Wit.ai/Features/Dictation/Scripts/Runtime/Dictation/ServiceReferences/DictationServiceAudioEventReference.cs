@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
@@ -20,3 +21,4 @@ namespace Facebook.WitAi.ServiceReferences
             _dictationServiceReference.DictationService.AudioEvents;
     }
 }
+#endif

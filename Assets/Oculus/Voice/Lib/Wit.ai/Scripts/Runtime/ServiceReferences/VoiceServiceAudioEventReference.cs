@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
@@ -18,3 +19,4 @@ namespace Facebook.WitAi.ServiceReferences
         public override IAudioInputEvents AudioEvents => _voiceServiceReference.VoiceService.AudioEvents;
     }
 }
+#endif

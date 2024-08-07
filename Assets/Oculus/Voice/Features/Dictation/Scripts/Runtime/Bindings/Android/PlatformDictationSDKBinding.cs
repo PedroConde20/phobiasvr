@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
@@ -47,3 +48,4 @@ namespace Oculus.Voice.Dictation.Bindings.Android
         }
     }
 }
+#endif

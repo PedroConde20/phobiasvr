@@ -1,4 +1,5 @@
-﻿/*
+﻿#if UNITY_EDITOR
+/*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
@@ -21,3 +22,4 @@ namespace Facebook.WitAi.Configuration
         protected override Vector2 RecordingTimeRange => new Vector2(-1, 300);
     }
 }
+#endif

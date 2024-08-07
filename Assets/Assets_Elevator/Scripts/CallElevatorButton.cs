@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class CallElevatorButton : MonoBehaviour
@@ -77,3 +78,4 @@ public class CallElevatorButton : MonoBehaviour
         psGlow.enableEmission = false;
     }
 }
+#endif

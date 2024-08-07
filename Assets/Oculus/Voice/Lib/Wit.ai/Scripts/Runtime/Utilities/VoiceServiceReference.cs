@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
@@ -9,9 +10,8 @@
 using System;
 using UnityEngine;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+
 
 namespace Facebook.WitAi.Utilities
 {
@@ -88,3 +88,4 @@ namespace Facebook.WitAi.Utilities
     }
 #endif
 }
+#endif

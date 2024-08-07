@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
@@ -47,12 +49,12 @@ namespace Facebook.WitAi
         private HashSet<WitRequest> _queuedRequests = new HashSet<WitRequest>();
         private Coroutine _queueHandler;
 
-        #region Interfaces
+#region Interfaces
         private IWitByteDataReadyHandler[] _dataReadyHandlers;
         private IWitByteDataSentHandler[] _dataSentHandlers;
         private IDynamicEntitiesProvider[] _dynamicEntityProviders;
 
-        #endregion
+#endregion
 
 #if DEBUG_SAMPLE
         private FileStream sampleFile;
@@ -134,7 +136,7 @@ namespace Facebook.WitAi
         protected bool ShouldSendMicData => RuntimeConfiguration.sendAudioToWit ||
                                                   null == _activeTranscriptionProvider;
 
-        #region LIFECYCLE
+#region LIFECYCLE
         // Find transcription provider & Mic
         protected void Awake()
         {
@@ -170,9 +172,9 @@ namespace Facebook.WitAi
                 e.OnSampleReady -= OnMicSampleReady;
             }
         }
-        #endregion
+#endregion
 
-        #region ACTIVATION
+#region ACTIVATION
         /// <summary>
         /// Activate the microphone and send data to Wit for NLU processing.
         /// </summary>
@@ -284,9 +286,9 @@ namespace Facebook.WitAi
             return RuntimeConfiguration.witConfiguration != null &&
                    !string.IsNullOrEmpty(RuntimeConfiguration.witConfiguration.clientAccessToken);
         }
-        #endregion
+#endregion
 
-        #region RECORDING
+#region RECORDING
         // Stop any recording
         private void StopRecording()
         {
@@ -373,9 +375,9 @@ namespace Facebook.WitAi
                     (buffer, offset, length) =>
                     {
                         _recordingRequest.Write(buffer, offset, length);
-                        #if DEBUG_SAMPLE
+#if DEBUG_SAMPLE
                         sampleFile?.Write(buffer, offset, length);
-                        #endif
+#endif
                     },
                     (buffer, offset, length) => VoiceEvents?.OnByteDataSent?.Invoke(buffer, offset, length),
                     (buffer, offset, length) =>
@@ -430,9 +432,9 @@ namespace Facebook.WitAi
                 OnMicLevelChanged(level);
             }
         }
-        #endregion
+#endregion
 
-        #region DEACTIVATION
+#region DEACTIVATION
         /// <summary>
         /// Stop listening and submit the collected microphone data to wit for processing.
         /// </summary>
@@ -519,9 +521,9 @@ namespace Facebook.WitAi
                 }
             }
         }
-        #endregion
+#endregion
 
-        #region TRANSCRIPTION
+#region TRANSCRIPTION
         private void OnPartialTranscription(string transcription)
         {
             // Clear record data
@@ -555,9 +557,9 @@ namespace Facebook.WitAi
             // Add to queue
             AddToQueue(request);
         }
-        #endregion
+#endregion
 
-        #region QUEUE
+#region QUEUE
         // Add request to wait queue
         private void AddToQueue(WitRequest request)
         {
@@ -617,9 +619,9 @@ namespace Facebook.WitAi
             // Kill coroutine
             _queueHandler = null;
         }
-        #endregion
+#endregion
 
-        #region RESPONSE
+#region RESPONSE
         /// <summary>
         /// Main thread call to handle partial response callbacks
         /// </summary>
@@ -675,7 +677,7 @@ namespace Facebook.WitAi
             // Complete delegate
             VoiceEvents?.OnRequestCompleted?.Invoke();
         }
-        #endregion
+#endregion
     }
 
     public interface IWitRuntimeConfigProvider
@@ -688,3 +690,4 @@ namespace Facebook.WitAi
         VoiceEvents VoiceEvents { get; }
     }
 }
+#endif

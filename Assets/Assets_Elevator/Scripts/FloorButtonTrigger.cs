@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class FloorButtonTrigger : MonoBehaviour
@@ -41,3 +42,4 @@ public class FloorButtonTrigger : MonoBehaviour
         psGlow.enableEmission = false;
     }
 }
+#endif

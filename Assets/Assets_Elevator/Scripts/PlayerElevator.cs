@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class PlayerElevator : MonoBehaviour
@@ -43,3 +44,4 @@ public class PlayerElevator : MonoBehaviour
         }
 	}
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 //#define USE_SharpZipLib
 #if !UNITY_WEBPLAYER
 #define USE_FileIO
@@ -1309,3 +1310,4 @@ namespace Facebook.WitAi.Lib
         public JSONParseException(string message) : base(message) { }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class CloseElevatorDoorButton : MonoBehaviour
@@ -48,3 +49,4 @@ public class CloseElevatorDoorButton : MonoBehaviour
         psGlow.enableEmission = false;
     }
 }
+#endif

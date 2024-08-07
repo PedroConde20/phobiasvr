@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,6 @@ public class ElevatorControl : MonoBehaviour
         HEADING_TO_FLOOR,
         WAITING_AT_FLOOR
     }
-    private float objectYPosition = 0.0f; //mio
 
     public ElevatorSoundController  m_elevatorSounds;
     public Vector2[]    m_vecLEDDisplayFloors;
@@ -367,3 +367,4 @@ public class CallButtonsPaired
 {
     public CallElevatorButton[] callButtons;
 }
+#endif

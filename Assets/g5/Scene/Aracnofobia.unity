@@ -119194,7 +119194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3801168658856413832}
   soundClip: {fileID: 8300000, guid: 8db08a0f4f6db844094e938415329c9d, type: 3}
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 7223479024748605269}
   maxDistance: 10
   minVolume: 0.01
   maxVolume: 0.5
