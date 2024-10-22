@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+
 
 public class DatosAdmin : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class DatosAdmin : MonoBehaviour
     public GameObject contenedorDeDatosPacienteObj; // Contenedor para mostrar datos completos
     public Text textoDatosPaciente; // Text para mostrar datos completos del paciente
     public Transform contenedorDatosPaciente; // Contenedor para los datos del paciente
+    public GameObject botonDescargar; // GameObject para el botón de descarga
 
     public ScrollRect scrollView;
 
@@ -26,6 +29,8 @@ public class DatosAdmin : MonoBehaviour
         originalText = textoPrefab;
         // Desactiva el contenedor de datos del paciente al inicio
         contenedorDeDatosPacienteObj.SetActive(false);
+        // Desactiva el botón de descargar al inicio
+        botonDescargar.SetActive(false);
     }
 
     public void ObtenerDatosAdminDesdeBoton()
@@ -59,6 +64,8 @@ public class DatosAdmin : MonoBehaviour
 
                 // Limpiar el diccionario de datos de pacientes
                 datosPacienteMap.Clear();
+
+
 
                 foreach (string conjuntoDeDatos in conjuntosDeDatos)
                 {
@@ -97,6 +104,7 @@ public class DatosAdmin : MonoBehaviour
                     }
                 }
 
+
                 // Destruir el texto original si es necesario
                 if (originalText != null)
                 {
@@ -126,6 +134,9 @@ public class DatosAdmin : MonoBehaviour
             }
         }
 
+        // Inicializa una variable para almacenar los datos del paciente
+        string datosParaGuardar = "Datos del paciente: " + nombreUsuario + "\n\n"; // Un salto de línea adicional
+
         // Obtener datos específicos del paciente y mostrarlos
         string[] conjuntosDeDatos = datosRecibidos.Split('\n');
         foreach (string conjuntoDeDatos in conjuntosDeDatos)
@@ -142,9 +153,8 @@ public class DatosAdmin : MonoBehaviour
                     string duracion = columnas[5];
                     string fechaFin = columnas[6];
 
-                    // Construir el texto completo para el paciente
-                    string textoCompleto = string.Format("Fobia: {0}\nNivel: {1}\nDuración: {2}\nFecha Fin: {3}",
-                                                          fobia, nivel, duracion, fechaFin);
+                    string textoCompleto = string.Format("Fobia: {0}\nNivel: {1}\nDuración: {2}\nFecha Fin: {3}\n\n",
+                                      fobia, nivel, duracion, fechaFin); // Dos saltos de línea al final para separación
 
                     // Instanciar un nuevo GameObject para el texto completo
                     Text nuevoTexto = Instantiate(textoDatosPaciente, contenedorDeDatosPacienteObj.transform);
@@ -155,11 +165,65 @@ public class DatosAdmin : MonoBehaviour
                     // Opcional: Ajusta la posición o el diseño si es necesario
                     nuevoTexto.transform.SetParent(contenedorDeDatosPacienteObj.transform, false);
 
-                    Debug.Log("Datos del paciente: " + textoCompleto);
+                    // Agregar los datos actuales al texto que se guardará (todos los conjuntos de datos del paciente)
+                    datosParaGuardar += textoCompleto; // Ya tiene saltos de línea al final
                 }
             }
         }
+
+        // Ahora, solo almacenamos los datos para el uso posterior
+        // almacenando datos para usarlos en el boton descargar
+        PlayerPrefs.SetString("DatosParaGuardar", datosParaGuardar); // Guardar en PlayerPrefs para acceder luego
+
+        // Activar el botón de descarga
+        botonDescargar.SetActive(true);
     }
+    public void GuardarArchivoSolo(string datos, string nombreUsuario)
+    {
+        // Generar el nombre del archivo con el nombre del paciente y la fecha actual
+        string nombreArchivo = nombreUsuario.Replace(" ", "_") + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+        // Obtener la ruta del escritorio del usuario
+        string rutaEscritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        // Combinar la ruta del escritorio con el nombre del archivo
+        string rutaArchivo = Path.Combine(rutaEscritorio, nombreArchivo);
+
+        // Escribir los datos en el archivo
+        try
+        {
+            File.WriteAllText(rutaArchivo, datos);
+            Debug.Log("Archivo guardado en: " + rutaArchivo);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error al guardar el archivo: " + e.Message);
+        }
+    }
+    public void OnNuevoBotonClick()
+    {
+        string datosParaGuardar = PlayerPrefs.GetString("DatosParaGuardar", "");
+        // Obtener el nombre del usuario del último paciente seleccionado
+        string nombreUsuario = ""; // Inicializa la variable para el nombre del paciente
+
+        // Recuperar el nombre del paciente usando el diccionario
+        if (datosPacienteMap.Count > 0)
+        {
+            // Suponiendo que estás guardando el último paciente seleccionado en PlayerPrefs
+            // o puedes guardarlo en una variable de instancia cuando haces clic en el botón
+            nombreUsuario = datosPacienteMap.Keys.Last(); // Obtiene el último nombre de paciente
+        }
+
+        if (!string.IsNullOrEmpty(datosParaGuardar))
+        {
+            GuardarArchivoSolo(datosParaGuardar, nombreUsuario);
+        }
+        else
+        {
+            Debug.LogWarning("No hay datos para guardar.");
+        }
+    }
+
     public void RegresarASeleccionDeNombres()
     {
         // Desactivar el contenedor de datos del paciente y activar el de nombres
@@ -189,6 +253,8 @@ public class DatosAdmin : MonoBehaviour
 
         // Asegúrate de que el ScrollView se posicione en la parte superior
         scrollView.verticalNormalizedPosition = 1f;
+        // Reactivar el botón de descarga si es necesario
+        botonDescargar.SetActive(false);
     }
 
 
@@ -196,6 +262,8 @@ public class DatosAdmin : MonoBehaviour
     {
         // Desactivar el contenedor de datos del paciente
         contenedorDeDatosPacienteObj.SetActive(false);
+        // Reactivar el botón de descarga si es necesario
+        botonDescargar.SetActive(false);
 
         // Limpiar el contenido del contenedor de datos del paciente
         foreach (Transform child in contenedorDeDatosPacienteObj.transform)
